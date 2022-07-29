@@ -99,8 +99,6 @@ export default {
         ...mapActions(["login"]),
         formSubmit() {
             this.$v.$touch();
-            this.form.email = "piaf-vue@coloredstrateSgies.com";
-            this.form.password = "piaf123";
             this.$v.form.$touch();
            // if (!this.$v.form.$anyError) {
                 this.login({
@@ -112,7 +110,7 @@ export default {
     },
     watch: {
         currentUser(val) {
-            if (val && val.uid && val.uid.length > 0) {
+            if (val && val.id && val.id !== null) {
                 setTimeout(() => {
                     this.$router.push(adminRoot);
                 }, 200);
