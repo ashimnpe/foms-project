@@ -1,15 +1,15 @@
-import firebase from 'firebase/app'
-import 'firebase/auth'
-import { currentUser, isAuthGuardActive } from '../../constants/config'
+import axios from 'axios'
+import { currentUser, isAuthGuardActive, baseUrl } from '../../constants/config'
 import { setCurrentUser, getCurrentUser } from '../../utils'
 
 export default {
   state: {
-    currentUser: isAuthGuardActive ? getCurrentUser() : currentUser,
+    currentUser: {},
     loginError: null,
     processing: false,
     forgotMailSuccess: null,
-    resetPasswordSuccess: null
+    resetPasswordSuccess: null,
+    token: null
   },
   getters: {
     currentUser: state => state.currentUser,
@@ -19,7 +19,10 @@ export default {
     resetPasswordSuccess: state => state.resetPasswordSuccess,
   },
   mutations: {
-    setUser(state, payload) {
+    SET_TOKEN: (state, token) => {
+      state.token = token
+    },
+    SET_USER(state, payload) {
       state.currentUser = payload
       state.processing = false
       state.loginError = null
@@ -58,23 +61,20 @@ export default {
     login({ commit }, payload) {
       commit('clearError')
       commit('setProcessing', true)
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(payload.email, payload.password)
-        .then(
-          user => {
-            const item = { uid: user.user.uid, ...currentUser }
-            setCurrentUser(item)
-            commit('setUser', item)
-          },
-          err => {
-            setCurrentUser(null);
-            commit('setError', err.message)
-            setTimeout(() => {
-              commit('clearError')
-            }, 3000)
-          }
-        )
+      return new Promise((resolve, reject) => {
+        axios.post(baseUrl + 'login', {
+          email: payload.email,
+          password: payload.password,
+        }).then(response => {
+          const result = response.data.result
+          localStorage.setItem('ACCESS_TOKEN', result.token)
+          commit('SET_USER', result.user)
+          commit('SET_TOKEN', result.token)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
     },
     forgotPassword({ commit }, payload) {
       commit('clearError')

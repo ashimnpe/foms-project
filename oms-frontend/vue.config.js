@@ -10,6 +10,7 @@ module.exports = {
     }
   },
   devServer: {
+    port: 8010,
     clientLogLevel: 'warning',
     hot: true,
     contentBase: 'dist',

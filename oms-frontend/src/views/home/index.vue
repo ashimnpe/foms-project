@@ -46,19 +46,19 @@
               :title="category.title"
               :active="category.id === 1"
             >
-              <b-container fluid class="p-4">
+              <b-container fluid>
                 <b-row>
-                  <b-card-group>
-                    <b-card
-                      class="m-4"
-                      style="max-width: 20rem;"
-                      v-for="(product, j) in category.products"
-                      :key="j"
-                      no-body
-                    >
+                  <b-col
+                    cols="12"
+                    md="3"
+                    sm="6"
+                    v-for="(product, j) in category.products"
+                    :key="j"
+                  >
+                    <b-card class="my-2" no-body>
                       <div class="position-relative">
                         <img
-                          src="/assets/img/cards/thumb-1.jpg"
+                          :src="imgBaseUrl + product.image"
                           class="card-img-top"
                         />
                         <b-badge
@@ -96,7 +96,7 @@
                         </div>
                       </b-card-body>
                     </b-card>
-                  </b-card-group>
+                  </b-col>
                 </b-row>
               </b-container>
             </b-tab>
@@ -142,7 +142,9 @@
         <div class="text-center">
           <h3>Your Order has been placed successfully!</h3>
           <p>Please note your Order ID</p>
-          <h1 style="font-size: 4rem;" class="text-danger font-weight-bold">{{ orderId }}</h1>
+          <h1 style="font-size: 4rem;" class="text-danger font-weight-bold">
+            {{ orderId }}
+          </h1>
         </div>
       </b-modal>
     </b-row>
@@ -165,6 +167,7 @@ export default {
   },
   data() {
     return {
+      imgBaseUrl: process.env.VUE_APP_IMG_BASE_URL,
       categories: [],
       products: [],
       netTotal: 0,
@@ -227,13 +230,13 @@ export default {
             vm.orderId = res.result.orderId;
             vm.$refs["orderPlacedModal"].show();
             vm.$refs["modalright"].hide();
-            vm.products = []
-            vm.netTotal = 0
-            vm.categories.map(category => {
+            vm.products = [];
+            vm.netTotal = 0;
+            vm.categories.map((category) => {
               category.products.map((product) => {
                 product.quantity = 0;
               });
-            })
+            });
           }
         });
     },
