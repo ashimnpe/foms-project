@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <home-layout>
     <b-row class="mb-5">
       <b-colxx xxs="12">
         <div>
@@ -148,11 +148,12 @@
         </div>
       </b-modal>
     </b-row>
-  </div>
+  </home-layout>
 </template>
 
 <script>
 import axios from "axios";
+import HomeLayoutVue from "../../layouts/HomeLayout.vue";
 import UserLayout from "../../layouts/UserLayout";
 import ImageCards from "../../containers/ui/ImageCards";
 import { baseUrl, imageBaseUrl } from "../../constants/config";
@@ -164,6 +165,7 @@ export default {
     "list-page-listing": ListPageListing,
     "user-layout": UserLayout,
     "image-cards": ImageCards,
+    "home-layout": HomeLayoutVue,
   },
   data() {
     return {
