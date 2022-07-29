@@ -23,7 +23,7 @@
                     size="lg"
                     class="btn-shadow"
                     @click="goBack"
-                  >{{ $t("pages.go-back-home") }}</b-button>
+                  >GO BACK TO LOGIN</b-button>
                 </div>
               </b-card>
             </b-colxx>
@@ -38,7 +38,7 @@ import { adminRoot } from '../constants/config';
 export default {
   methods: {
     goBack() {
-      this.$router.push(adminRoot);
+      this.$router.push('/user/login');
     },
   },
   mounted: function () {
