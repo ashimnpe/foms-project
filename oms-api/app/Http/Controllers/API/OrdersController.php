@@ -19,7 +19,7 @@ class OrdersController extends Controller
                 'grand_total' => $request->netTotal
             ]);
 
-            foreach($request->products as $prod) {
+            foreach ($request->products as $prod) {
                 $product = (object) $prod;
                 OrderDetail::create([
                     'order_id' => $order->id,
@@ -35,11 +35,32 @@ class OrdersController extends Controller
                 'message' => 'Order placed successfully!',
                 'orderId' => $order->id
             ], 201);
-
         } catch (\Throwable $th) {
             DB::rollBack();
             return parent::resp(false, $th->getMessage(), 422);
         }
     }
 
+    public function getAllOrders()
+    {
+        $orders = Order::with(['order_details' => function ($query) {
+            $query->with('product')->get();
+        }])->get();
+
+        return parent::resp(true, $orders, 200);
+    }
+
+    public function makePayment(Request $request)
+    {
+        try {
+            $order = Order::findOrFail($request->order_id);
+            $order->update([
+                'order_status' => 'Completed',
+                'payment_status' => 'Paid'
+            ]);
+            return parent::resp(true, 'Payment made successfully', 201);
+        } catch (\Throwable $th) {
+            return parent::resp(false, $th->getMessage(), 400);
+        }
+    }
 }
