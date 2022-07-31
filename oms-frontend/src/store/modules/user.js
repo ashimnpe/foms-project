@@ -72,8 +72,10 @@ export default {
           password: payload.password,
         }).then(response => {
           const result = response.data.result
-          const buff = new Buffer(result.token)
-          localStorage.setItem('ACCESS_TOKEN', buff.toString('base64'))
+          
+          const token = window.btoa(result.token)
+          localStorage.setItem('ACCESS_TOKEN', token)
+          
           setCurrentUser(result.user)
           commit('SET_USER', result.user)
           commit('SET_TOKEN', result.token)

@@ -9,7 +9,6 @@ export default (to, from, next) => {
         next('/user/login')
       }
       const user = getCurrentUser()
-      // const buff = new Buffer(localStorage.getItem('ACCESS_TOKEN'), 'base64')
       if (user) {
         const roleArrayHierarchic = to.matched.filter(x => x.meta.roles).map(x => x.meta.roles);
         if (roleArrayHierarchic.every(x => x.includes(user.role))) {
