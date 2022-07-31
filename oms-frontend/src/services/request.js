@@ -1,34 +1,33 @@
 import axios from 'axios'
-// import store from '@/store'
-// import storage from 'store'
+import { baseUrl } from '../constants/config'
+import store from '@/store'
 
 // Create axios instance
 const request = axios.create({
-  // API Default prefix requested
-  baseURL: process.env.VUE_APP_API_BASE_URL,
-  // baseURL: 'http://freedom.test/api',
-  // baseURL: 'http://mlogics.com.np/api',
+  baseURL: baseUrl,
   timeout: 10000 // Request timeout
 })
+const token = window.atob(localStorage.getItem('ACCESS_TOKEN'))
 // Exception interception handler
 const errorHandler = (error) => {
   if (error.response) {
     const data = error.response.data
     // Get token from localstorage
-    const token = localStorage.getItem('ACCESS_TOKEN')
     if (error.response.status === 403) {
-      notification.error({
-        message: 'Forbidden',
-        description: data.message
-      })
+      alert(data.message)
+      // this.$notify("error", "Forbidden", data.message, {
+      //   duration: 3000,
+      //   permanent: false,
+      // });
     }
     if (error.response.status === 401) {
-      notification.error({
-        message: 'Unauthorized',
-        description: 'Authorization verification failed'
-      })
+      alert('Unauthorized')
+      // this.$notify("error", "Unauthorized", 'Authorization verification failed', {
+      //   duration: 3000,
+      //   permanent: false,
+      // });
       if (token) {
-        store.dispatch('Logout').then(() => {
+        store.dispatch('signOut').then(() => {
           setTimeout(() => {
             window.location.reload()
           }, 1500)
@@ -41,7 +40,6 @@ const errorHandler = (error) => {
 
 // request interceptor
 request.interceptors.request.use(config => {
-  const token = storage.get(ACCESS_TOKEN)
   // If token exists
   // Let each request carry a custom token, please modify it according to the actual situation
   if (token) {

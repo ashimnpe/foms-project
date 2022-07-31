@@ -1,15 +1,16 @@
 import axios from 'axios'
-import { currentUser, isAuthGuardActive, baseUrl } from '../../constants/config'
-import { setCurrentUser, getCurrentUser } from '../../utils'
+import { baseUrl, currentUser, isAuthGuardActive } from '../../constants/config'
+import {setCurrentUser, getCurrentUser} from '../../utils'
 
 export default {
   state: {
-    currentUser: {},
+    currentUser: isAuthGuardActive ? getCurrentUser() : currentUser,
     loginError: null,
     processing: false,
     forgotMailSuccess: null,
     resetPasswordSuccess: null,
-    token: null
+    token: null,
+    isAuthGuardActive: false,
   },
   getters: {
     currentUser: state => state.currentUser,
@@ -17,6 +18,7 @@ export default {
     loginError: state => state.loginError,
     forgotMailSuccess: state => state.forgotMailSuccess,
     resetPasswordSuccess: state => state.resetPasswordSuccess,
+    isAuthGuardActive: state => state.isAuthGuardActive,
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -26,6 +28,9 @@ export default {
       state.currentUser = payload
       state.processing = false
       state.loginError = null
+    },
+    SET_AUTHGUARD(state, payload) {
+      state.isAuthGuardActive = payload
     },
     setLogout(state) {
       state.currentUser = null
@@ -67,11 +72,15 @@ export default {
           password: payload.password,
         }).then(response => {
           const result = response.data.result
-          localStorage.setItem('ACCESS_TOKEN', result.token)
+          const buff = new Buffer(result.token)
+          localStorage.setItem('ACCESS_TOKEN', buff.toString('base64'))
+          setCurrentUser(result.user)
           commit('SET_USER', result.user)
           commit('SET_TOKEN', result.token)
+          commit('SET_AUTHGUARD', true)
           resolve()
         }).catch(error => {
+          commit('setError', error.response)
           reject(error)
         })
       })
@@ -117,13 +126,9 @@ export default {
 
 
     signOut({ commit }) {
-      firebase
-        .auth()
-        .signOut()
-        .then(() => {
-          setCurrentUser(null);
-          commit('setLogout')
-        }, _error => { })
+      commit('setLogout')
+      setCurrentUser(null)
+      localStorage.removeItem('ACCESS_TOKEN')
     }
   }
 }

@@ -118,7 +118,7 @@ export default {
         },
         loginError(val) {
             if (val != null) {
-                this.$notify("error", "Login Error", val, {
+                this.$notify("error", "Login Error", val.data.result + ' access', {
                     duration: 3000,
                     permanent: false
                 });
