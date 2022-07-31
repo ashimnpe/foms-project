@@ -170,9 +170,9 @@
           no-caret
         >
           <template slot="button-content">
-            <span class="name mr-1">{{currentUser.title}}</span>
+            <span class="name mr-1" v-if="currentUser">{{currentUser.name}}</span>
             <span>
-              <img :alt="currentUser.title" :src="currentUser.img" />
+              <img alt="Profile picture" src="/assets/img/profiles/l-1.jpg" />
             </span>
           </template>
           <b-dropdown-item>Account</b-dropdown-item>

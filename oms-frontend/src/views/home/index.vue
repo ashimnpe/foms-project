@@ -58,7 +58,7 @@
                     <b-card class="my-2" no-body>
                       <div class="position-relative">
                         <img
-                          :src="imgBaseUrl + product.image"
+                          :src="img + product.image"
                           class="card-img-top"
                         />
                         <b-badge
@@ -169,7 +169,6 @@ export default {
   },
   data() {
     return {
-      imgBaseUrl: process.env.VUE_APP_IMG_BASE_URL,
       categories: [],
       products: [],
       netTotal: 0,

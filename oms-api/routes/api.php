@@ -18,5 +18,4 @@ Route::middleware('auth:sanctum')->group(function () {
     // Category
     Route::resource('category', CategoriesController::class);
     Route::resource('product', ProductsController::class);
-
 });

@@ -1,23 +1,24 @@
-import store from '../store/index'
-import { setCurrentUser } from '.'
+import { getCurrentUser, setCurrentUser } from '.'
 import { isAuthGuardActive } from '../constants/config'
 
 export default (to, from, next) => {
   if (to.matched.some(record => record.meta.loginRequired)) {
     if (isAuthGuardActive) {
-      const user = store.getters.currentUser
-      const role = localStorage.getItem('USER_ROLE')
-      if (user && role) {
+      if (localStorage.getItem('ACCESS_TOKEN') === null) {
+        setCurrentUser(null);
+        next('/user/login')
+      }
+      const user = getCurrentUser()
+      // const buff = new Buffer(localStorage.getItem('ACCESS_TOKEN'), 'base64')
+      if (user) {
         const roleArrayHierarchic = to.matched.filter(x => x.meta.roles).map(x => x.meta.roles);
-        if (roleArrayHierarchic.every(x => x.includes(role))) {
+        if (roleArrayHierarchic.every(x => x.includes(user.role))) {
           next();
         } else {
           next('/unauthorized')
         }
       } else {
         setCurrentUser(null);
-        localStorage.setItem('USER_ROLE')
-        localStorage.setItem('ACCESS_TOKEN')
         next('/user/login')
       }
     } else {

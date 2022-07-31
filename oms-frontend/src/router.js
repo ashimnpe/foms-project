@@ -40,8 +40,8 @@ const routes = [
       {
         path: "orders",
         component: () =>
-          import(/* webpackChunkName: "pages" */ "./views/app/pages/product"),
-        redirect: `${adminRoot}/orders/index`
+        import(/* webpackChunkName: "dashboards" */ "./views/app/foods/Orders"),
+        meta: { roles: [UserRole.Admin, UserRole.Chef] },
       },
       
       {

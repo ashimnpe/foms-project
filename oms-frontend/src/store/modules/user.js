@@ -1,9 +1,10 @@
 import axios from 'axios'
-import { baseUrl } from '../../constants/config'
+import { baseUrl, currentUser, isAuthGuardActive } from '../../constants/config'
+import {setCurrentUser, getCurrentUser} from '../../utils'
 
 export default {
   state: {
-    currentUser: {},
+    currentUser: isAuthGuardActive ? getCurrentUser() : currentUser,
     loginError: null,
     processing: false,
     forgotMailSuccess: null,
@@ -71,8 +72,9 @@ export default {
           password: payload.password,
         }).then(response => {
           const result = response.data.result
-          localStorage.setItem('ACCESS_TOKEN', result.token)
-          localStorage.setItem('USER_ROLE', result.user.role)
+          const buff = new Buffer(result.token)
+          localStorage.setItem('ACCESS_TOKEN', buff.toString('base64'))
+          setCurrentUser(result.user)
           commit('SET_USER', result.user)
           commit('SET_TOKEN', result.token)
           commit('SET_AUTHGUARD', true)
@@ -125,7 +127,8 @@ export default {
 
     signOut({ commit }) {
       commit('setLogout')
-      localStorage.setItem('ACCESS_TOKEN', '')
+      setCurrentUser(null)
+      localStorage.removeItem('ACCESS_TOKEN')
     }
   }
 }

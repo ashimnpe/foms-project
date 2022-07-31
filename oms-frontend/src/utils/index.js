@@ -143,8 +143,7 @@ export const setCurrentLanguage = (lang) => {
 export const getCurrentUser = () => {
   let user = null;
   try {
-    // user = store.getters.currentUser
-    user = localStorage.getItem('USER_ROLE') != null ? JSON.parse(localStorage.getItem('USER_ROLE')) : null;
+    user = localStorage.getItem('USER') != null ? JSON.parse(localStorage.getItem('USER')) : null;
   } catch (error) {
     console.log(">>>> src/utils/index.js : getCurrentUser -> error", error)
     user = null;
@@ -155,9 +154,9 @@ export const getCurrentUser = () => {
 export const setCurrentUser = (user) => {
   try {
     if (user) {
-      localStorage.setItem('user', JSON.stringify(user))
+      localStorage.setItem('USER', JSON.stringify(user))
     } else {
-      localStorage.removeItem('user');
+      localStorage.removeItem('USER');
     }
   } catch (error) {
     console.log(">>>> src/utils/index.js : setCurrentUser -> error", error)
