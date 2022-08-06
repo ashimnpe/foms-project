@@ -21,7 +21,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('all/orders', [OrdersController::class, 'getAllOrders']);
     Route::post('make/payment', [OrdersController::class, 'makePayment']);
 });
-
-Route::get('/test', function() {
-    return "Hello this is test";
-});
