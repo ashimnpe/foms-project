@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->double('net_total');
-            $table->double('discount')->default(0);
             $table->double('grand_total');
             $table->string('order_status')->default('processing');
             $table->integer('payment_method')->nullable();

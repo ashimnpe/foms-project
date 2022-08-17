@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('product', ProductsController::class);
     Route::get('all/orders', [OrdersController::class, 'getAllOrders']);
     Route::post('make/payment', [OrdersController::class, 'makePayment']);
+    Route::post('complete/order', [OrdersController::class, 'completeOrder']);
 
     Route::get('all/users', [UserController::class, 'getAllUsers']);
     Route::get('product', [ProductsController::class, 'getAllProducts']);

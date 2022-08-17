@@ -13,36 +13,35 @@
             <thead>
               <tr>
                 <th scope="col">Order #</th>
-                <th class="text-center" scope="col" >Action</th>
-                <th scope="col">Grand Total</th>
-                <th scope="col">Payment Status</th>
+                <th class="text-center" scope="col">Action</th>
+                <th class="text-right" scope="col">Grand Total</th>
+                <th class="text-center" scope="col">Order Status</th>
                 <th scope="col">Order Placed on</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(order, i) in orders" :key="i">
                 <th scope="row">{{ order.id }}</th>
-
                 <td class="d-flex justify-content-around">
                   <b-button variant="outline-primary" @click="showDetail(order.id)"
                     >Detail</b-button
                   >
-                  <b-button :disabled="order.payment_status === 'Paid'" variant="primary" @click="payNow(order.id)"
-                    >Payment</b-button
+                  
+                  <b-button :disabled="order.order_status === 'Completed'" variant="primary" @click="orderCheck(order.id)"
+                    >Order Complete</b-button
                   >
                 </td>
                 <td class="text-right font-weight-bold">
                   Rs.{{ order.grand_total }}
                 </td>
-                <td>
+                <td class="text-center">
                   <b-button
                     class="text-capitalize"
-                    disabled
-                    pill
-                    :variant="order.payment_status === 'Paid' ? 'danger' : 'outline-danger'"
+                    :disabled="order.order_status === 'Completed'" variant="success"
+                    pill 
+                    @click="checkOrder(order.id)"
+                    >{{ order.order_status }}</b-button
                   >
-                    {{ order.payment_status }}
-                  </b-button>
                 </td>
                 <td>{{ order.created_at }}</td>
               </tr>
@@ -60,7 +59,7 @@
 </template>
 
 <script>
-import { getOrders, makePayment } from "@/api/orders";
+import { getOrders, completeOrder } from "@/api/orders";
 
 export default {
   data() {
@@ -87,14 +86,14 @@ export default {
         (order) => order.id === id
       )[0].order_details;
     },
-    payNow(id) {
+    orderCheck(id) {
       const vm = this
       this.$bvModal
-        .msgBoxConfirm("Are you sure want to make a payment?")
+        .msgBoxConfirm("Are you sure the order is complete?")
         .then((value) => {
           if (value) {
             // call backend
-            makePayment({
+            completeOrder({
               order_id: id,
             }).then((res) => {
               if (res.success) {
