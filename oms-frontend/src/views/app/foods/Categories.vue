@@ -25,7 +25,7 @@
               <tr v-for="(category, i) in categories" :key="i">
                 <td>{{ category.id }}</td>
                 <td>
-                  <img style="width: 150px" :src="img + category.image" />
+                  <img style="width: 96px" :src="img + category.image" />
                 </td>
                 <td>{{ category.title }}</td>
                 <td>

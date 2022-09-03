@@ -9,6 +9,8 @@ use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image as Image;
+use Illuminate\Support\Facades\Storage;
 
 class CategoriesController extends Controller
 {
@@ -43,19 +45,27 @@ class CategoriesController extends Controller
         $request->validate([
             'title' => 'required|unique:categories,title'
         ]);
-        
-        $image = $request->file('image');
 
+        $image = $request->file('image');
+        
+        $img = Image::make($image);
+        $img->resize(256, null, function ($constraint) {
+            $constraint->aspectRatio();
+        })->encode('jpg');
+
+        
         $fileName = Str::slug($request->title, '-') . Carbon::now()->format('Ymdhi');
         $filenameWithExt = $fileName . '.' . $image->extension();
-        $path = '/categories/';
+        $path = "/categories/{$filenameWithExt}";
 
         try {
             Category::create([
                 'title' => $request->title,
-                'image' => $path . $filenameWithExt
+                'image' => "/storage{$path}"
             ]);
-            $image->storeAs($path, $filenameWithExt);
+
+            Storage::put($path, $img->__toString());
+
             return parent::resp(true, 'Category Created!', 201);
         } catch (Exception $ex) {
             return parent::resp(false, $ex->getMessage(), 422);
