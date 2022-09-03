@@ -75,4 +75,8 @@ class OrdersController extends Controller
             return parent::resp(false, $th->getMessage(), 400);
         }
     }
+
+    public function getCount(){
+        
+    }
 }

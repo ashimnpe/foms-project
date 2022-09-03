@@ -31,7 +31,7 @@
 <script>
 import GlideComponent from "../../components/Carousel/GlideComponent";
 import IconCard from "../../components/Cards/IconCard";
-import { getOrders } from "@/api/orders";
+import { getCount } from "@/api/orders";
 
 export default {
   components: {
@@ -41,7 +41,6 @@ export default {
   data() {
     return {
       orders: [],
-      value: 'hello',
       glideIconsOption: {
         gap: 3,
         perView: 4,
@@ -56,14 +55,14 @@ export default {
     };
   },
   methods: {
-    fetchAllOrders() {
-      getOrders().then((res) => {
-        this.orders = res.result;
+    fetchCount() {
+      getCount().then((res) => {
+        console.log(res);
       });
     },
   },
   mounted(){
-    this.fetchAllOrders();
+    this.fetchCount();
   }
 };
 </script>
