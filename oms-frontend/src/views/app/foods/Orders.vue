@@ -13,8 +13,9 @@
             <thead>
               <tr>
                 <th scope="col">Order #</th>
-                <th class="text-center" scope="col" >Action</th>
-                <th scope="col">Grand Total</th>
+                <th scope="col">Action</th>
+                <th class="text-right" scope="col">Grand Total</th>
+                <th class="text-center" scope="col">Order Status</th>
                 <th scope="col">Payment Status</th>
                 <th scope="col">Order Placed on</th>
               </tr>
@@ -31,9 +32,21 @@
                     >Payment</b-button
                   >
                 </td>
+
                 <td class="text-right font-weight-bold">
                   Rs.{{ order.grand_total }}
                 </td>
+
+                <td class="text-center">
+                  <b-button
+                    class="text-capitalize"
+                    disabled
+                    pill
+                    :variant="order.order_status === 'Completed' ? 'primary' : 'outline-primary'"
+                    >{{ order.order_status }}</b-button
+                  >
+                </td>
+
                 <td>
                   <b-button
                     class="text-capitalize"
@@ -44,6 +57,7 @@
                     {{ order.payment_status }}
                   </b-button>
                 </td>
+                
                 <td>{{ order.created_at }}</td>
               </tr>
             </tbody>
@@ -61,7 +75,6 @@
 
 <script>
 import { getOrders, makePayment } from "@/api/orders";
-
 export default {
   data() {
     return {

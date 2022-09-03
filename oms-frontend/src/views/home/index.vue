@@ -10,7 +10,7 @@
             style="height: 75px;"
           >
             <b-navbar-brand tag="h1" class="mb-0"
-              >ORDER MANAGEMENT SYSTEM</b-navbar-brand
+              >TIKTOK HOTEL & FAMILY RESTAURANT</b-navbar-brand
             >
             <b-navbar-nav class="ml-auto">
               <h4 class="mt-2">

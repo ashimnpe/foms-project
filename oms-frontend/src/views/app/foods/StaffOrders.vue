@@ -13,15 +13,17 @@
             <thead>
               <tr>
                 <th scope="col">Order #</th>
-                <th class="text-center" scope="col">Action</th>
+                <th scope="col">Action</th>
                 <th class="text-right" scope="col">Grand Total</th>
                 <th class="text-center" scope="col">Order Status</th>
+                <th scope="col">Payment Status</th>
                 <th scope="col">Order Placed on</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(order, i) in orders" :key="i">
                 <th scope="row">{{ order.id }}</th>
+
                 <td class="d-flex justify-content-around">
                   <b-button variant="outline-primary" @click="showDetail(order.id)"
                     >Detail</b-button
@@ -31,9 +33,11 @@
                     >Order Complete</b-button
                   >
                 </td>
+
                 <td class="text-right font-weight-bold">
                   Rs.{{ order.grand_total }}
                 </td>
+
                 <td class="text-center">
                   <b-button
                     class="text-capitalize"
@@ -43,6 +47,7 @@
                     >{{ order.order_status }}</b-button
                   >
                 </td>
+                
                 <td>{{ order.created_at }}</td>
               </tr>
             </tbody>
