@@ -4,25 +4,25 @@
       <icon-card 
         title="Pending Orders" 
         icon="iconsminds-clock" 
-        value="1"
+        :value="count.pending"
         />
 
         <icon-card
         title="Completed Orders" 
         icon="iconsminds-coffee"
-        value="3"
+        :value="count.completed"
       />
 
       <icon-card
       title="Total Orders" 
         icon="iconsminds-basket-coins"
-        value="4"
+        :value="count.total"
       />
 
       <icon-card
       title="Staffs" 
         icon="iconsminds-user"
-        value="2"
+        :value="count.user"
       />
       <!-- <icon-card :title="$t('dashboards.new-comments')" icon="iconsminds-mail-read" :value="25" /> -->
     </glide-component>
@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      orders: [],
+      count: [],
       glideIconsOption: {
         gap: 3,
         perView: 4,
@@ -57,7 +57,7 @@ export default {
   methods: {
     fetchCount() {
       getCount().then((res) => {
-        console.log(res);
+        this.count = res.result
       });
     },
   },
