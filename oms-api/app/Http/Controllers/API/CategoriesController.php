@@ -4,8 +4,13 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Carbon\Carbon;
+use DateTime;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image as Image;
+use Illuminate\Support\Facades\Storage;
 
 class CategoriesController extends Controller
 {
@@ -41,10 +46,26 @@ class CategoriesController extends Controller
             'title' => 'required|unique:categories,title'
         ]);
 
+        $image = $request->file('image');
+        
+        $img = Image::make($image);
+        $img->resize(256, null, function ($constraint) {
+            $constraint->aspectRatio();
+        })->encode('jpg');
+
+        
+        $fileName = Str::slug($request->title, '-') . Carbon::now()->format('Ymdhi');
+        $filenameWithExt = $fileName . '.' . $image->extension();
+        $path = "/categories/{$filenameWithExt}";
+
         try {
             Category::create([
-                'title' => $request->title
+                'title' => $request->title,
+                'image' => "/storage{$path}"
             ]);
+
+            Storage::put($path, $img->__toString());
+
             return parent::resp(true, 'Category Created!', 201);
         } catch (Exception $ex) {
             return parent::resp(false, $ex->getMessage(), 422);

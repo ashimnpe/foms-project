@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -76,7 +77,17 @@ class OrdersController extends Controller
         }
     }
 
-    public function getCount(){
-        
+    public function getCount()
+    {
+        $user = User::count();
+        $order = Order::get('order_status as status');
+
+        $count = [
+            'user' => $user,
+            'total' => $order->count(),
+            'pending' => $order->where('status', 'processing')->count(),
+            'completed' => $order->where('status', 'Completed')->count()
+        ];
+        return parent::resp(true, $count);
     }
 }
