@@ -36,45 +36,62 @@ const routes = [
           }
         ]
       },
-
+      {
+        path: "categories",
+        component: () =>
+        import(/* webpackChunkName: "dashboards" */ "./views/app/foods/Categories"),
+        meta: { roles: [UserRole.Admin] },
+      },
+      {
+        path: "products",
+        component: () =>
+        import(/* webpackChunkName: "dashboards" */ "./views/app/foods/Products"),
+        meta: { roles: [UserRole.Admin] },
+      },
+      {
+        path: "users",
+        component: () =>
+        import(/* webpackChunkName: "dashboards" */ "./views/app/foods/Users"),
+        meta: { roles: [UserRole.Admin] },
+      },
       {
         path: "orders",
         component: () =>
         import(/* webpackChunkName: "dashboards" */ "./views/app/foods/Orders"),
         meta: { roles: [UserRole.Admin, UserRole.Chef] },
       },
-      {
-        path: "categories",
-        component: () =>
-          import(/* webpackChunkName: "applications" */ "./views/app/applications"),
-        redirect: `${adminRoot}/categories/todo`,
-        children: [
-          {
-            path: "todo",
-            component: () =>
-              import(/* webpackChunkName: "applications" */ "./views/app/applications/Todo")
-          },
-        ]
-      },
-      {
-        path: "products",
-        component: () => import(/* webpackChunkName: "ui" */ "./views/app/ui"),
-        redirect: `${adminRoot}/products/index`,
-        children: [
-          {
-            path: "forms",
-            component: () =>
-              import(/* webpackChunkName : "forms" */ "./views/app/ui/forms"),
-            redirect: `${adminRoot}/ui/forms/layouts`
-          }
-        ]
-      },
-      {
-        path: "users",
-        component: () =>
-          import(/* webpackChunkName: "menu" */ "./views/app/menu"),
-        redirect: `${adminRoot}/users/types`
-      },
+      // {
+      //   path: "categories",
+      //   component: () =>
+      //     import(/* webpackChunkName: "applications" */ "./views/app/applications"),
+      //   redirect: `${adminRoot}/categories/todo`,
+      //   children: [
+      //     {
+      //       path: "todo",
+      //       component: () =>
+      //         import(/* webpackChunkName: "applications" */ "./views/app/applications/Todo")
+      //     },
+      //   ]
+      // },
+      // {
+      //   path: "products",
+      //   component: () => import(/* webpackChunkName: "ui" */ "./views/app/ui"),
+      //   redirect: `${adminRoot}/products/index`,
+      //   children: [
+      //     {
+      //       path: "forms",
+      //       component: () =>
+      //         import(/* webpackChunkName : "forms" */ "./views/app/ui/forms"),
+      //       redirect: `${adminRoot}/ui/forms/layouts`
+      //     }
+      //   ]
+      // },
+      // {
+      //   path: "users",
+      //   component: () =>
+      //     import(/* webpackChunkName: "menu" */ "./views/app/menu"),
+      //   redirect: `${adminRoot}/users/types`
+      // },
     ]
   },
   {

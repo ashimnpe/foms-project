@@ -3,27 +3,19 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Product;
-use Exception;
+use App\Models\User;
 use Illuminate\Http\Request;
 
-class ProductsController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return parent::resp(true, Category::with('products')->get(), 200);
-    }
-
-    public function getAllProducts(){
-        $products = Product::all();
-        return parent::resp(true, $products, 200);
-
+    public function getAllUsers(){
+        $users = User::all();
+        return parent::resp(true, $users, 200);
     }
 
     /**
@@ -44,22 +36,7 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|unique:products,title',
-            'category_id' => 'required|numeric',
-            'price' => 'required|numeric'
-        ]);
-
-        try {
-            Product::create([
-                'title' => $request->title,
-                'category_id' => $request->category_id,
-                'price' => $request->price
-            ]);
-            return parent::resp(true, 'Product Created!', 201);
-        } catch (Exception $ex) {
-            return parent::resp(false, $ex->getMessage(), 422);
-        }
+        //
     }
 
     /**
