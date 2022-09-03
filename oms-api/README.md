@@ -2,15 +2,16 @@
 ```
 
 INSERT INTO `categories` (`id`, `title`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'Mo:Mo', '/food/momo/chicken_momo.jpg', '2022-07-28 09:46:32', '2022-07-28 09:46:32'),
-(2, 'Chowmein', '/food/chowmein/chicken_chowmein.jpg', '2022-07-28 09:46:39', '2022-07-28 09:46:39'),
-(3, 'Burger', '/food/burger/chicken_burger.jpg', '2022-07-28 09:46:41', '2022-07-28 09:46:41'),
-(4, 'Sandwich', '/food/sandwich/chicken_sandwich.jpg', '2022-07-29 10:19:24', '2022-07-29 10:19:29'),
-(5, 'Thukpa', '/food/thukpa/egg_thukpa.jpg\n', '2022-07-29 10:19:36', '2022-07-29 10:19:40'),
-(6, 'Pizza', '/food/pizza/cheese_pizza.jpg\n', '2022-07-29 10:19:44', '2022-07-29 10:19:48'),
-(7, 'Snacks', '/food/snacks/french_fries.jpg', NULL, NULL),
-(8, 'Hot Drinks', '/food/hot_drinks/black_tea.jpg', NULL, NULL),
-(9, 'Cold Drinks', '/food/cold_drinks/drinks.jpg', '2022-07-29 10:42:51', '2022-07-29 10:42:51');
+(1, 'Mo:Mo', '/category/chicken_momo.jpg', '2022-07-28 09:46:32', '2022-07-28 09:46:32'),
+(2, 'Chowmein', '/category/chicken_chowmein.jpg', '2022-07-28 09:46:39', '2022-07-28 09:46:39'),
+(3, 'Burger', '/category/chicken_burger.jpg', '2022-07-28 09:46:41', '2022-07-28 09:46:41'),
+(4, 'Sandwich', '/category/chicken_sandwich.jpg', '2022-07-29 10:19:24', '2022-07-29 10:19:29'),
+(5, 'Thukpa', '/category/egg_thukpa.jpg\n', '2022-07-29 10:19:36', '2022-07-29 10:19:40'),
+(6, 'Pizza', '/category/cheese_pizza.jpg\n', '2022-07-29 10:19:44', '2022-07-29 10:19:48'),
+(7, 'Snacks', '/category/french_fries.jpg', NULL, NULL),
+(8, 'Hot Drinks', '/category/black_tea.jpg', NULL, NULL),
+(9, 'Cold Drinks', '/category/drinks.jpg', '2022-07-29 10:42:51', '2022-07-29 10:42:51');
+
 
 
 
