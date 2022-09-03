@@ -15,7 +15,14 @@ const data = [
   icon: "iconsminds-digital-drawing",
   label: "Orders",
   to: `${adminRoot}/orders`,
-  roles: [UserRole.Admin, UserRole.Chef],
+  roles: [UserRole.Admin],
+},
+{
+  id: "stafforders",
+  icon: "iconsminds-digital-drawing",
+  label: "Orders",
+  to: `${adminRoot}/stafforders`,
+  roles: [UserRole.Chef],
 },
 {
   id: "categories",

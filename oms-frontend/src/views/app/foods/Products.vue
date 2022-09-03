@@ -21,7 +21,7 @@
                         <tbody>
                             <tr v-for="(product, i) in products" :key="i">
                                 <td>{{product.id}}</td>
-                                <td>{{product.image}}</td>
+                                <td><img style="width: 150px;" :src="img + product.image"/></td>
                                 <td>{{product.title}}</td>
                                 <td>{{product.price}}</td>
                             </tr>
@@ -35,11 +35,13 @@
 
 <script>
 import { getProducts } from '@/api/products';
+import { baseUrl, imageBaseUrl } from "@/constants/config";
 
 export default {
     data(){
         return{
-            products: []
+            products: [],
+            img: imageBaseUrl,
         };
     },
     methods: {

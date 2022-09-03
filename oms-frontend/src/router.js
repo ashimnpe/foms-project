@@ -58,7 +58,13 @@ const routes = [
         path: "orders",
         component: () =>
         import(/* webpackChunkName: "dashboards" */ "./views/app/foods/Orders"),
-        meta: { roles: [UserRole.Admin, UserRole.Chef] },
+        meta: { roles: [UserRole.Admin] },
+      },
+      {
+        path: "stafforders",
+        component: () =>
+        import(/* webpackChunkName: "dashboards" */ "./views/app/foods/StaffOrders"),
+        meta: { roles: [UserRole.Chef] },
       },
       // {
       //   path: "categories",

@@ -7,19 +7,19 @@
       </b-colxx>
     </b-row>
     <b-row>
-      <b-colxx xl="6" lg="12">
+      <b-colxx xl="12" lg="12">
         <icon-cards-carousel></icon-cards-carousel>
-        <b-row>
+        <!-- <b-row>
           <b-colxx md="12" class="mb-4">
             <sales-chart-card></sales-chart-card>
           </b-colxx>
-        </b-row>
+        </b-row> -->
       </b-colxx>
-      <b-colxx lg="12" xl="6" class="mb-4">
+      <!-- <b-colxx lg="12" xl="6" class="mb-4">
         <recent-orders></recent-orders>
-      </b-colxx>
+      </b-colxx> -->
     </b-row>
-    <b-row>
+    <!-- <b-row>
       <b-colxx lg="4" md="12" class="mb-4">
         <product-categories-polar-area></product-categories-polar-area>
       </b-colxx>
@@ -29,16 +29,16 @@
       <b-colxx lg="4" md="6" class="mb-4">
         <tickets></tickets>
       </b-colxx>
-    </b-row>
-    <b-row>
+    </b-row> -->
+    <!-- <b-row>
       <b-colxx xl="6" lg="12" class="mb-4">
         <calendar></calendar>
       </b-colxx>
       <b-colxx xl="6" lg="12" class="mb-4">
         <best-sellers :title="$t('dashboards.best-sellers')"></best-sellers>
       </b-colxx>
-    </b-row>
-    <b-row>
+    </b-row> -->
+    <!-- <b-row>
       <b-colxx sm="12" lg="4" class="mb-4">
         <profile-statuses></profile-statuses>
       </b-colxx>
@@ -52,17 +52,17 @@
       <b-colxx md="6" lg="4" class="mb-4">
         <cakes></cakes>
       </b-colxx>
-    </b-row>
-    <sortable-statictics-row></sortable-statictics-row>
-    <b-row>
+    </b-row> -->
+    <!-- <sortable-statictics-row></sortable-statictics-row> -->
+    <!-- <b-row>
       <b-colxx sm="12" md="6" class="mb-4">
         <website-visit-chart-card></website-visit-chart-card>
       </b-colxx>
       <b-colxx sm="12" md="6" class="mb-4">
         <converconversion-rates-chart-card></converconversion-rates-chart-card>
       </b-colxx>
-    </b-row>
-    <b-row>
+    </b-row> -->
+    <!-- <b-row>
       <b-colxx lg="12" md="6" xl="4">
         <b-row>
           <b-colxx lg="4" xl="12" class="mb-4">
@@ -101,7 +101,7 @@
         <small-line-charts itemClass="dashboard-small-chart"></small-line-charts>
         <top-rated-items></top-rated-items>
       </b-colxx>
-    </b-row>
+    </b-row> -->
   </div>
 </template>
 

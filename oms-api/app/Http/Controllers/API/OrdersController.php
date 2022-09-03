@@ -55,10 +55,22 @@ class OrdersController extends Controller
         try {
             $order = Order::findOrFail($request->order_id);
             $order->update([
-                'order_status' => 'Completed',
                 'payment_status' => 'Paid'
             ]);
             return parent::resp(true, 'Payment made successfully', 201);
+        } catch (\Throwable $th) {
+            return parent::resp(false, $th->getMessage(), 400);
+        }
+    }
+
+    public function completeOrder(Request $request)
+    {
+        try {
+            $order = Order::findOrFail($request->order_id);
+            $order->update([
+                'order_status' => 'Completed',
+            ]);
+            return parent::resp(true, 'Order completed', 201);
         } catch (\Throwable $th) {
             return parent::resp(false, $th->getMessage(), 400);
         }

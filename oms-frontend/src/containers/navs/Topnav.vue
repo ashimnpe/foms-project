@@ -15,7 +15,7 @@
       >
         <mobile-menu-icon />
       </a>
-      <div
+      <!-- <div
         :class="{'search':true, 'mobile-view':isMobileSearch}"
         ref="searchContainer"
         @mouseenter="isSearchOver=true"
@@ -29,8 +29,8 @@
         <span class="search-icon" @click="searchClick">
           <i class="simple-icon-magnifier"></i>
         </span>
-      </div>
-      <div class="d-inline-block">
+      </div> -->
+      <!-- <div class="d-inline-block">
         <b-dropdown
           id="langddm"
           class="ml-2"
@@ -54,13 +54,12 @@
           target="_top"
           :href="buyUrl"
         >{{$t('user.buy')}}</a>
-      </div>
-    </div>
-    <router-link class="navbar-logo" :to="adminRoot">
-      <span class="logo d-none d-xs-block"></span>
-      <span class="logo-mobile d-block d-xs-none"></span>
+      </div> -->
+      <router-link  class="navbar-brand" :to="adminRoot">
+        <span class="logo d-none d-xs-block"><h1>Tiktok Hotel & Family Restaurant</h1></span>
+        <span class="logo-mobile d-block d-xs-none"></span>
     </router-link>
-
+    </div>
     <div class="navbar-right">
       <div class="d-none d-md-inline-block align-middle mr-3">
         <switches
@@ -73,83 +72,7 @@
         <b-tooltip target="tool-mode-switch" placement="left" title="Dark Mode"></b-tooltip>
       </div>
       <div class="header-icons d-inline-block align-middle">
-        <div class="position-relative d-none d-sm-inline-block">
-          <b-dropdown
-            variant="empty"
-            size="sm"
-            right
-            toggle-class="header-icon"
-            menu-class="position-absolute mt-3 iconMenuDropdown"
-            no-caret
-          >
-            <template slot="button-content">
-              <i class="simple-icon-grid" />
-            </template>
-            <div>
-              <router-link :to="`${adminRoot}/dashboards/default`" class="icon-menu-item">
-                <i class="iconsminds-shop-4 d-block" />
-                {{$t('menu.dashboards')}}
-              </router-link>
-              <router-link :to="`${adminRoot}/ui`" class="icon-menu-item">
-                <i class="iconsminds-pantone d-block" />
-                {{$t('menu.ui')}}
-              </router-link>
-              <router-link :to="`${adminRoot}/ui/components/charts`" class="icon-menu-item">
-                <i class="iconsminds-bar-chart-4 d-block" />
-                {{$t('menu.charts')}}
-              </router-link>
-              <router-link :to="`${adminRoot}/applications/chat`" class="icon-menu-item">
-                <i class="iconsminds-speach-bubble d-block" />
-                {{$t('menu.chat')}}
-              </router-link>
-              <router-link :to="`${adminRoot}/applications/survey`" class="icon-menu-item">
-                <i class="iconsminds-formula d-block" />
-                {{$t('menu.survey')}}
-              </router-link>
-              <router-link :to="`${adminRoot}/applications/todo`" class="icon-menu-item">
-                <i class="iconsminds-check d-block" />
-                {{$t('menu.todo')}}
-              </router-link>
-            </div>
-          </b-dropdown>
-        </div>
-
-        <div class="position-relative d-inline-block">
-          <b-dropdown
-            variant="empty"
-            size="sm"
-            right
-            toggle-class="header-icon notificationButton"
-            menu-class="position-absolute mt-3 notificationDropdown"
-            no-caret
-          >
-            <template slot="button-content">
-              <i class="simple-icon-bell" />
-              <span class="count">3</span>
-            </template>
-            <vue-perfect-scrollbar :settings="{ suppressScrollX: true, wheelPropagation: false }">
-              <div
-                class="d-flex flex-row mb-3 pb-3 border-bottom"
-                v-for="(n,index) in notifications"
-                :key="index"
-              >
-                <router-link :to="`${adminRoot}/pages/product/details`">
-                  <img
-                    :src="n.img"
-                    :alt="n.title"
-                    class="img-thumbnail list-thumbnail xsmall border-0 rounded-circle"
-                  />
-                </router-link>
-                <div class="pl-3 pr-2">
-                  <router-link :to="`${adminRoot}/pages/product/details`">
-                    <p class="font-weight-medium mb-1">{{n.title}}</p>
-                    <p class="text-muted mb-0 text-small">{{n.date}}</p>
-                  </router-link>
-                </div>
-              </div>
-            </vue-perfect-scrollbar>
-          </b-dropdown>
-        </div>
+        
         <div class="position-relative d-none d-sm-inline-block">
           <div class="btn-group">
             <b-button variant="empty" class="header-icon btn-sm" @click="toggleFullScreen">
@@ -175,16 +98,32 @@
               <img alt="Profile picture" src="/assets/img/profiles/l-1.jpg" />
             </span>
           </template>
-          <b-dropdown-item>Account</b-dropdown-item>
-          <b-dropdown-item>Features</b-dropdown-item>
-          <b-dropdown-item>History</b-dropdown-item>
-          <b-dropdown-item>Support</b-dropdown-item>
+          <b-dropdown-item @click="userAccount()">Account</b-dropdown-item>
           <b-dropdown-divider />
           <b-dropdown-item @click="logout">Sign out</b-dropdown-item>
         </b-dropdown>
       </div>
     </div>
+
+    <b-modal ref="userProfile" title="Account Profile">
+      <table class="table">
+        <tr>
+          <th>Full Name</th>
+          <td>{{currentUser.name}}</td>
+        </tr>
+        <tr>
+          <th>Email Address</th>
+          <td>{{currentUser.email}}</td>
+        </tr>
+        <tr>
+          <th>Role</th>
+          <td>{{currentUser.role}}</td>
+        </tr>
+      </table>
+    </b-modal>
   </nav>
+
+    
 </template>
 
 <script>
@@ -201,6 +140,7 @@ import {
   adminRoot
 } from "../../constants/config";
 import { getDirection, setDirection, getThemeColor, setThemeColor } from "../../utils";
+
 export default {
   components: {
     "menu-icon": MenuIcon,
@@ -260,6 +200,9 @@ export default {
       this.signOut().then(() => {
         this.$router.push("/user/login");
       });
+    },
+    userAccount() {
+      this.$refs["userProfile"].show();
     },
 
     toggleFullScreen() {

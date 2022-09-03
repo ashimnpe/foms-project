@@ -14,3 +14,11 @@ export const makePayment = (parameter) => {
         data: parameter
     })
 }
+
+export const completeOrder = (parameter) => {
+    return request({
+        url: 'complete/order',
+        method: 'post',
+        data: parameter
+    })
+}

@@ -28,8 +28,9 @@
                   <b-button variant="outline-primary" @click="showDetail(order.id)"
                     >Detail</b-button
                   >
-                  <b-button :disabled="order.payment_status === 'Paid'" variant="primary" @click="payNow(order.id)"
-                    >Payment</b-button
+                  
+                  <b-button :disabled="order.order_status === 'Completed'" variant="primary" @click="orderCheck(order.id)"
+                    >Order Complete</b-button
                   >
                 </td>
 
@@ -40,22 +41,11 @@
                 <td class="text-center">
                   <b-button
                     class="text-capitalize"
-                    disabled
-                    pill
-                    :variant="order.order_status === 'Completed' ? 'primary' : 'outline-primary'"
+                    :disabled="order.order_status === 'Completed'" variant="success"
+                    pill 
+                    @click="checkOrder(order.id)"
                     >{{ order.order_status }}</b-button
                   >
-                </td>
-
-                <td>
-                  <b-button
-                    class="text-capitalize"
-                    disabled
-                    pill
-                    :variant="order.payment_status === 'Paid' ? 'danger' : 'outline-danger'"
-                  >
-                    {{ order.payment_status }}
-                  </b-button>
                 </td>
                 
                 <td>{{ order.created_at }}</td>
@@ -74,7 +64,8 @@
 </template>
 
 <script>
-import { getOrders, makePayment } from "@/api/orders";
+import { getOrders, completeOrder } from "@/api/orders";
+
 export default {
   data() {
     return {
@@ -100,14 +91,14 @@ export default {
         (order) => order.id === id
       )[0].order_details;
     },
-    payNow(id) {
+    orderCheck(id) {
       const vm = this
       this.$bvModal
-        .msgBoxConfirm("Are you sure want to make a payment?")
+        .msgBoxConfirm("Are you sure the order is complete?")
         .then((value) => {
           if (value) {
             // call backend
-            makePayment({
+            completeOrder({
               order_id: id,
             }).then((res) => {
               if (res.success) {
