@@ -6,3 +6,12 @@ export const getCategories = () => {
         method: 'get'
     })
 }
+
+
+export const createCategory = (params) => {
+    return request({
+        url: 'category',
+        method: 'post',
+        data: params
+    })
+}
