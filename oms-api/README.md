@@ -1,64 +1,65 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## DATABASE IMPORT
+```
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+INSERT INTO `categories` (`id`, `title`, `image`, `created_at`, `updated_at`) VALUES
+(1, 'Mo:Mo', '/food/momo/chicken_momo.jpg', '2022-07-28 09:46:32', '2022-07-28 09:46:32'),
+(2, 'Chowmein', '/food/chowmein/chicken_chowmein.jpg', '2022-07-28 09:46:39', '2022-07-28 09:46:39'),
+(3, 'Burger', '/food/burger/chicken_burger.jpg', '2022-07-28 09:46:41', '2022-07-28 09:46:41'),
+(4, 'Sandwich', '/food/sandwich/chicken_sandwich.jpg', '2022-07-29 10:19:24', '2022-07-29 10:19:29'),
+(5, 'Thukpa', '/food/thukpa/egg_thukpa.jpg\n', '2022-07-29 10:19:36', '2022-07-29 10:19:40'),
+(6, 'Pizza', '/food/pizza/cheese_pizza.jpg\n', '2022-07-29 10:19:44', '2022-07-29 10:19:48'),
+(7, 'Snacks', '/food/snacks/french_fries.jpg', NULL, NULL),
+(8, 'Hot Drinks', '/food/hot_drinks/black_tea.jpg', NULL, NULL),
+(9, 'Cold Drinks', '/food/cold_drinks/drinks.jpg', '2022-07-29 10:42:51', '2022-07-29 10:42:51');
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+INSERT INTO `products` (`id`, `title`, `category_id`, `price`, `image`, `created_at`, `updated_at`) VALUES
+(1, 'Chicken Mo:Mo', 1, 170, '/food/momo/chicken_momo.jpg', '2022-07-28 09:51:47', '2022-07-28 09:51:47'),
+(2, 'Veg Mo:Mo', 1, 150, '/food/momo/veg_momo.jpg', '2022-07-28 09:52:31', '2022-07-28 09:52:31'),
+(3, 'Buff Mo:Mo', 1, 160, '/food/momo/buff_momo.jpg', '2022-07-28 09:52:37', '2022-07-28 09:52:37'),
+(4, 'Chicken C Mo:Mo', 1, 210, '/food/momo/c_momo.jpg', '2022-07-28 09:52:46', '2022-07-28 09:52:46'),
+(5, 'Chicken Chowmein', 2, 140, '/food/chowmein/chicken_chowmein.jpg', '2022-07-28 09:53:06', '2022-07-28 09:53:06'),
+(6, 'Veg Chowmein', 2, 110, '/food/chowmein/veg_chowmein.jpg', '2022-07-28 09:53:13', '2022-07-28 09:53:13'),
+(7, 'Buff Chowmein', 2, 140, '/food/chowmein/buff_chowmein.jpg', '2022-07-28 09:53:21', '2022-07-28 09:53:21'),
+(8, 'Chicken Burger', 3, 185, '/food/burger/chicken_burger.jpg', '2022-07-28 09:53:43', '2022-07-28 09:53:43'),
+(9, 'HamBurger', 3, 140, '/food/burger/hamburger.jpg', '2022-07-28 09:53:53', '2022-07-28 09:53:53'),
+(10, 'Chicken Mo:Mo (Fried)', 1, 200, '/food/momo/frymomo.jpg', '2022-07-29 14:50:29', '2022-07-29 14:50:29'),
+(11, 'Chicken Sandwich', 4, 140, '/food/sandwich/chicken_sandwich.jpg', NULL, NULL),
+(12, 'Tuna Sandwich', 4, 170, '/food/sandwich/tuna_sandwich.jpg\n', NULL, NULL),
+(13, 'Veg Sandwich', 4, 110, '/food/sandwich/veg_sandwich.jpg\n', NULL, NULL),
+(14, 'Buff Sandwich', 4, 160, '/food/sandwich/buff_sandwich.jpg\n', NULL, NULL),
+(15, 'Veg Thukpa', 5, 70, '/food/thukpa/veg_thukpa.jpg\n', NULL, NULL),
+(16, 'Egg Thukpa', 5, 100, '/food/thukpa/egg_thukpa.jpg\n', NULL, NULL),
+(17, 'Buff Thupka', 5, 90, '/food/thukpa/buff_thukpa.jpg\n', '2022-07-29 10:30:42', '2022-07-29 10:30:42'),
+(18, 'Chicken Thupka', 5, 110, '/food/thukpa/chicken_thukpa.jpg\n', '2022-07-29 10:30:42', '2022-07-29 10:30:42'),
+(20, 'Cheese Pizza', 6, 220, '/food/pizza/cheese_pizza.jpg\n', '2022-07-29 10:32:03', '2022-07-29 10:32:03'),
+(21, 'Chicken Pizza', 6, 190, '/food/pizza/chicken_pizza.jpg\n', '2022-07-29 10:32:03', '2022-07-29 10:32:03'),
+(22, 'Pepperoni Pizza', 6, 300, '/food/pizza/pepperoni_pizza.jpg\n', '2022-07-29 10:32:03', '2022-07-29 10:32:03'),
+(23, 'Mushroom Pizza', 6, 180, '/food/pizza/mushroom_pizza.jpg\n', '2022-07-29 10:32:03', '2022-07-29 10:32:03'),
+(24, 'Samosa', 7, 25, '/food/snacks/samosa.jpg', '2022-07-29 10:34:56', '2022-07-29 10:34:56'),
+(25, 'Pakauda', 7, 50, '/food/snacks/pakauda.jpg', '2022-07-29 10:34:56', '2022-07-29 10:34:56'),
+(26, 'Chana ', 7, 30, '/food/snacks/chana.jpg', '2022-07-29 10:34:56', '2022-07-29 10:34:56'),
+(27, 'Aalu Parotha ', 7, 60, '/food/snacks/aalo_paratha.jpg', '2022-07-29 10:34:56', '2022-07-29 10:34:56'),
+(28, 'French Fries', 7, 120, '/food/snacks/french_fries.jpg', '2022-07-29 10:34:56', '2022-07-29 10:34:56'),
+(29, 'Chicken Chilli', 7, 180, '/food/snacks/chicken_chilli.jpg', '2022-07-29 10:34:56', '2022-07-29 10:34:56'),
+(30, 'Wai Wai Sadeko', 7, 150, '/food/snacks/waiwai.jpg', '2022-07-29 10:38:33', '2022-07-29 10:38:33'),
+(31, 'Chicken Sausage', 7, 50, '/food/snacks/chicken_sausage.jpg', '2022-07-29 10:38:33', '2022-07-29 10:38:33'),
+(32, 'Buff Sausage', 7, 70, '/food/snacks/buff_sausage.png', '2022-07-29 10:38:33', '2022-07-29 10:38:33'),
+(33, 'Milk Tea', 8, 25, '/food/hot_drinks/milk_tea.jpg', '2022-07-29 10:39:41', '2022-07-29 10:39:41'),
+(34, 'Black Tea', 8, 20, '/food/hot_drinks/black_tea.jpg', '2022-07-29 10:39:41', '2022-07-29 10:39:41'),
+(35, 'Lemon Tea', 8, 25, '/food/hot_drinks/lemon_tea.jpg', '2022-07-29 10:39:41', '2022-07-29 10:39:41'),
+(36, 'Milk Coffee', 8, 70, '/food/hot_drinks/milk_coffee.jpg', '2022-07-29 10:39:41', '2022-07-29 10:39:41'),
+(37, 'Hot Lemon', 8, 25, '/food/hot_drinks/hot_lemon.jpg', '2022-07-29 10:39:41', '2022-07-29 10:39:41'),
+(38, 'Dew/Coke/Sprite/Fanta', 9, 60, '/food/cold_drinks/drinks.jpg', '2022-07-29 10:43:18', '2022-07-29 10:43:18'),
+(40, 'Real/Frooti', 9, 25, '/food/cold_drinks/frooti.jpg', '2022-07-29 10:43:18', '2022-07-29 10:43:18'),
+(41, 'Red Bull', 9, 100, '/food/cold_drinks/redbull.jpg', '2022-07-29 10:43:18', '2022-07-29 10:43:18'),
+(42, 'Lassi', 9, 80, '/food/cold_drinks/lassi.jpg', '2022-07-29 10:43:18', '2022-07-29 10:43:18');
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+INSERT INTO `users` (`id`, `name`, `email`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'Dipen Chand', 'dipen@gmail.com', 'admin', NULL, '$2y$10$1yrVtjDgaSAe/CkOKMRLOurztERAT/m..sNPzqP55MNgWVobkqoZq', NULL, NULL, NULL),
+(2, 'Ashim Neupane', 'ashim@gmail.com', 'chef', NULL, '$2y$10$1yrVtjDgaSAe/CkOKMRLOurztERAT/m..sNPzqP55MNgWVobkqoZq', NULL, NULL, NULL);
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
