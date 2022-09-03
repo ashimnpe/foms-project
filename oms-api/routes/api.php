@@ -25,4 +25,5 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('all/users', [UserController::class, 'getAllUsers']);
     Route::get('product', [ProductsController::class, 'getAllProducts']);
+    Route::get('orders/count', [OrdersController::class, 'getCount']);
 });

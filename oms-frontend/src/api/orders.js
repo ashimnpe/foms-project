@@ -22,3 +22,10 @@ export const completeOrder = (parameter) => {
         data: parameter
     })
 }
+
+export const getCount = () => {
+    return request({
+        url: 'orders/count',
+        method: 'get'
+    })
+}
