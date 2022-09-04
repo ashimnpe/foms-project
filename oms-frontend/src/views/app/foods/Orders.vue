@@ -13,7 +13,7 @@
             <thead>
               <tr>
                 <th scope="col">Order #</th>
-                <th scope="col">Action</th>
+                <th class="text-right" scope="col">Action</th>
                 <th class="text-right" scope="col">Grand Total</th>
                 <th class="text-center" scope="col">Order Status</th>
                 <th scope="col">Payment Status</th>
@@ -27,9 +27,6 @@
                 <td class="d-flex justify-content-around">
                   <b-button variant="outline-primary" @click="showDetail(order.id)"
                     >Detail</b-button
-                  >
-                  <b-button :disabled="order.payment_status === 'Paid'" variant="primary" @click="payNow(order.id)"
-                    >Payment</b-button
                   >
                 </td>
 
@@ -74,7 +71,7 @@
 </template>
 
 <script>
-import { getOrders, makePayment } from "@/api/orders";
+import { getOrders } from "@/api/orders";
 export default {
   data() {
     return {
@@ -99,45 +96,6 @@ export default {
       this.details = this.orders.filter(
         (order) => order.id === id
       )[0].order_details;
-    },
-    payNow(id) {
-      const vm = this
-      this.$bvModal
-        .msgBoxConfirm("Are you sure want to make a payment?")
-        .then((value) => {
-          if (value) {
-            // call backend
-            makePayment({
-              order_id: id,
-            }).then((res) => {
-              if (res.success) {
-                vm.fetchAllOrders();
-                vm.$notify(
-                  "success",
-                  "Success",
-                  res.result,
-                  {
-                    duration: 3000,
-                    permanent: false,
-                  }
-                );
-              } else {
-                vm.$notify(
-                  "error",
-                  "Failed",
-                  res.result,
-                  {
-                    duration: 3000,
-                    permanent: false,
-                  }
-                );
-              }
-            });
-          }
-        })
-        .catch((err) => {
-          alert(err.message);
-        });
     },
   },
   mounted() {

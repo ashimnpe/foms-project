@@ -15,7 +15,7 @@ const routes = [
     path: adminRoot,
     component: () => import(/* webpackChunkName: "app" */ "./views/app"),
     redirect: `${adminRoot}/dashboards`,
-    meta: { loginRequired: true, roles: [UserRole.Admin, UserRole.Chef] },
+    meta: { loginRequired: true, roles: [UserRole.Admin, UserRole.Chef, , UserRole.Staff] },
     /*
     define with Authorization :
     meta: { loginRequired: true, roles: [UserRole.Admin, UserRole.Chef] },
@@ -26,7 +26,7 @@ const routes = [
         component: () =>
           import(/* webpackChunkName: "dashboards" */ "./views/app/dashboards"),
         redirect: `${adminRoot}/dashboards/default`,
-        meta: { roles: [UserRole.Admin, UserRole.Chef] },
+        meta: { roles: [UserRole.Admin, UserRole.Chef, UserRole.Staff ] },
         children: [
           {
             path: "default",
@@ -64,6 +64,12 @@ const routes = [
         path: "stafforders",
         component: () =>
         import(/* webpackChunkName: "dashboards" */ "./views/app/foods/StaffOrders"),
+        meta: { roles: [UserRole.Staff] },
+      },
+      {
+        path: "cheforders",
+        component: () =>
+        import(/* webpackChunkName: "dashboards" */ "./views/app/foods/ChefOrders"),
         meta: { roles: [UserRole.Chef] },
       },
       // {
