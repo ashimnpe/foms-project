@@ -7,13 +7,14 @@
             <b-colxx xxs="12" md="10" class="mx-auto my-auto">
               <b-card class="auth-card" no-body>
                 <div class="position-relative image-side">
-                  <p class="text-white h2">MAGIC IS IN THE DETAILS</p>
+                  <p class="text-white h2">MAGIC IS IN THE FOOD</p>
                   <p class="white mb-0">Yes, it is indeed!</p>
                 </div>
                 <div class="form-side">
                   <router-link to="/">
-                    <span class="logo-single" />
+                    <span ><h2><strong>Food Order Management System</strong></h2></span>
                   </router-link>
+                  <br/>
                   <h6 class="mb-4">{{ $t("unauthorized.title") }}</h6>
                   <p class="mb-0 text-muted text-small mb-0">{{ $t("unauthorized.detail") }}</p>
                   <p class="display-1 font-weight-bold mb-5">503</p>

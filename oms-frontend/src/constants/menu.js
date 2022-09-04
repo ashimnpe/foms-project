@@ -7,7 +7,7 @@ const data = [
   icon: "iconsminds-shop-4",
   label: "menu.dashboards",
   to: `${adminRoot}/dashboards`,
-  roles: [UserRole.Admin, UserRole.Chef],
+  roles: [UserRole.Admin, UserRole.Chef, UserRole.Staff],
 },
 
 {
@@ -22,6 +22,13 @@ const data = [
   icon: "iconsminds-digital-drawing",
   label: "Orders",
   to: `${adminRoot}/stafforders`,
+  roles: [UserRole.Staff],
+},
+{
+  id: "cheforders",
+  icon: "iconsminds-digital-drawing",
+  label: "Orders",
+  to: `${adminRoot}/cheforders`,
   roles: [UserRole.Chef],
 },
 {
