@@ -15,3 +15,19 @@ export const createCategory = (params) => {
         data: params
     })
 }
+
+export const updateCategory = (params) => {
+    return request({
+        url: 'update/category',
+        method: 'post',
+        data: params
+    })
+}
+
+export const deleteCategory = (params) => {
+    return request({
+        url: 'delete/category',
+        method: 'post',
+        data: params
+    })
+}
