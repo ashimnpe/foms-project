@@ -18,6 +18,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Category
     Route::resource('category', CategoriesController::class);
+    Route::post('update/category', [CategoriesController::class, 'updateCategory']);
+    Route::post('delete/category', [CategoriesController::class, 'deleteCategory']);
     Route::resource('product', ProductsController::class);
     Route::get('all/orders', [OrdersController::class, 'getAllOrders']);
     Route::post('make/payment', [OrdersController::class, 'makePayment']);

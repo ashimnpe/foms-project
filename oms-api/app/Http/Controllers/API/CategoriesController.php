@@ -49,7 +49,7 @@ class CategoriesController extends Controller
         $image = $request->file('image');
         
         $img = Image::make($image);
-        $img->resize(256, null, function ($constraint) {
+        $img->resize(512, null, function ($constraint) {
             $constraint->aspectRatio();
         })->encode('jpg');
 
@@ -61,7 +61,7 @@ class CategoriesController extends Controller
         try {
             Category::create([
                 'title' => $request->title,
-                'image' => "/storage{$path}"
+                'image' => $path
             ]);
 
             Storage::put($path, $img->__toString());
@@ -72,27 +72,7 @@ class CategoriesController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
 
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -101,9 +81,37 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateCategory(Request $request)
     {
-        //
+        $category = Category::findOrFail($request->id);
+        $path = $category->image;
+        try {
+
+            if ($request->image != $category->image){
+                $image = $request->file('image');
+            
+                $img = Image::make($image);
+                $img->resize(512, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->encode('jpg');
+
+                
+                $fileName = Str::slug($request->title, '-') . Carbon::now()->format('Ymdhi');
+                $filenameWithExt = $fileName . '.' . $image->extension();
+                $path = "/categories/{$filenameWithExt}";
+
+                Storage::put($path, $img->__toString());
+            }
+ 
+        
+            $category->update([
+                'title' => $request->title,
+                'image' => $path
+            ]);
+            return parent::resp(true, 'Category Updated!', 201);
+        } catch (Exception $ex) {
+            return parent::resp(false, 'Failed Category Updated!', 422);
+        }
     }
 
     /**
@@ -112,8 +120,16 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteCategory()
     {
-        //
+        $category = Category::findOrFail(request()->id);
+        try {
+            // $file = $category->image;
+            // Storage::delete($file);
+            $category->delete();
+            return parent::resp(true, 'Successfully Deleted', 201);
+        } catch (Exception $ex) {
+            return parent::resp(false, 'Failed', 422);
+        }
     }
 }
