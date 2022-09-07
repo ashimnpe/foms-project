@@ -20,20 +20,10 @@ class ProductsController extends Controller
         return parent::resp(true, Category::with('products')->get(), 200);
     }
 
-    public function getAllProducts(){
+    public function getAllProducts()
+    {
         $products = Product::all();
         return parent::resp(true, $products, 200);
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -50,12 +40,28 @@ class ProductsController extends Controller
             'price' => 'required|numeric'
         ]);
 
+        $image = $request->file('image');
+
+        $img = Image::make($image);
+        $img->resize(512, null, function ($constraint) {
+            $constraint->aspectRatio();
+        })->encode('jpg');
+
+
+        $fileName = Str::slug($request->title, '-') . Carbon::now()->format('Ymdhi');
+        $filenameWithExt = $fileName . '.' . $image->extension();
+        $path = "/categories/{$filenameWithExt}";
+
         try {
             Product::create([
                 'title' => $request->title,
                 'category_id' => $request->category_id,
-                'price' => $request->price
+                'price' => $request->price,
+                'image' => $path
             ]);
+
+            Storage::put($path, $img->__toString());
+
             return parent::resp(true, 'Product Created!', 201);
         } catch (Exception $ex) {
             return parent::resp(false, $ex->getMessage(), 422);
@@ -91,9 +97,38 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateProduct(Request $request)
     {
-        //
+        $product = Product::findOrFail($request->id);
+        $path = $product->image;
+        try {
+            if ($request->image != $product->image) {
+                $image = $request->file('image');
+
+                $img = Image::make($image);
+                $img->resize(512, null, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->encode('jpg');
+
+
+                $fileName = Str::slug($request->title, '-') . Carbon::now()->format('Ymdhi');
+                $filenameWithExt = $fileName . '.' . $image->extension();
+                $path = "/categories/{$filenameWithExt}";
+
+                Storage::put($path, $img->__toString());
+            }
+
+
+            $product->update([
+                'title' => $request->title,
+                'category_id' => $request->category_id,
+                'price' => $request->price,
+                'image' => $path
+            ]);
+            return parent::resp(true, 'Product Updated!', 201);
+        } catch (Exception $ex) {
+            return parent::resp(false, 'Failed Product Updated!', 422);
+        }
     }
 
     /**
@@ -102,8 +137,14 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteProduct()
     {
-        //
+        $product = Product::findOrFail(request()->id);
+        try {
+            $product->delete();
+            return parent::resp(true, 'Successfully Deleted', 201);
+        } catch (Exception $ex) {
+            return parent::resp(false, 'Failed', 422);
+        }
     }
 }

@@ -25,16 +25,6 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create(Request $request)
-    {
-
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -58,11 +48,11 @@ class CategoriesController extends Controller
         $filenameWithExt = $fileName . '.' . $image->extension();
         $path = "/categories/{$filenameWithExt}";
 
-        try {
-            Category::create([
-                'title' => $request->title,
-                'image' => $path
-            ]);
+            try {
+                Category::create([
+                    'title' => $request->title,
+                    'image' => $path
+                ]);
 
             Storage::put($path, $img->__toString());
 

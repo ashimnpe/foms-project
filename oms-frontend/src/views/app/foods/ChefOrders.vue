@@ -47,6 +47,17 @@
                     >{{ order.order_status }}</b-button
                   >
                 </td>
+
+                <td>
+                  <b-button
+                    class="text-capitalize"
+                    disabled
+                    pill
+                    :variant="order.payment_status === 'Paid' ? 'danger' : 'outline-danger'"
+                  >
+                    {{ order.payment_status }}
+                  </b-button>
+                </td>
                 
                 <td>{{ order.created_at }}</td>
               </tr>

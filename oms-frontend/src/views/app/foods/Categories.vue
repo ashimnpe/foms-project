@@ -53,40 +53,40 @@
     </b-row>
 
     <b-modal ref="categoryModal" :title="modalTitle" hide-footer>
-      <b-form ref="categoryForm" @submit="submitCategory">
-        <div class="mb-3">
-          <label class="form-label">Category Name</label>
-          <input
-            type="text"
-            v-model="categoryForm.title"
-            class="form-control"
-            placeholder="Category Name"
-            aria-label="Full name"
-          />
-        </div>
-        <div class="mb-3">
-          <label class="form-label">Image</label>
-          <b-form-file
-            v-model="categoryForm.image"
-            :state="Boolean(categoryForm.image)"
-            placeholder="Choose a file or drop it here..."
-            drop-placeholder="Drop file here..."
-          ></b-form-file>
-          <div class="mt-3">
-            Selected file:
-            {{
-              categoryForm.image && type === "new"
-                ? categoryForm.image.name
-                : categoryForm.image
-            }}
+        <b-form ref="categoryForm" @submit="submitCategory">
+          <div class="mb-3">
+            <label class="form-label">Category Name</label>
+            <input
+              type="text"
+              v-model="categoryForm.title"
+              class="form-control"
+              placeholder="Category Name"
+              aria-label="Full name"
+            />
           </div>
-        </div>
+          <div class="mb  -3">
+            <label class="form-label">Image</label>
+            <b-form-file
+              v-model="categoryForm.image"
+              :state="Boolean(categoryForm.image)"
+              placeholder="Choose a file or drop it here..."
+              drop-placeholder="Drop file here..."
+            ></b-form-file>
+            <div class="mt-3">
+              Selected file:
+              {{
+                categoryForm.image && type === "new"
+                  ? categoryForm.image.name
+                  : categoryForm.image
+              }}
+            </div>
+          </div>
 
-        <b-button variant="primary" type="submit" class="mr-1">
-          <template v-if="type === 'new'">Create</template>
-          <template v-else>Update</template>
-        </b-button>
-      </b-form>
+          <b-button variant="primary" type="submit" class="mr-1">
+            <template v-if="type === 'new'">Create</template>
+            <template v-else>Update</template>
+          </b-button>
+        </b-form>
     </b-modal>
   </div>
 </template>
@@ -109,7 +109,7 @@ export default {
         title: "",
         image: "",
       },
-      type: "",
+        type: "",
       modalTitle: "",
       selectedCategoryId: "",
     };
@@ -154,6 +154,12 @@ export default {
             this.$refs["categoryModal"].hide();
             this.categoryForm = {};
             this.$notify("success", "Success", res.result, {
+              duration: 3000,
+              permanent: false,
+            });
+          }
+          else{
+            this.$notify("success", message, res.result, {
               duration: 3000,
               permanent: false,
             });
