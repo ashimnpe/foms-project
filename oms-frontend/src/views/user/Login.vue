@@ -111,10 +111,15 @@ export default {
     watch: {
         currentUser(val) {
             if (val && val.id && val.id !== null) {
+                this.$notify("success", "Login Success", val.result , {
+                    duration: 2000,
+                    permanent: false
+                });
+            }
                 setTimeout(() => {
                     this.$router.push(adminRoot);
-                }, 200);
-            }
+                }, 1000);
+             
         },
         loginError(val) {
             if (val != null) {

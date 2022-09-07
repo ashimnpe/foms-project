@@ -20,12 +20,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('category', CategoriesController::class);
     Route::post('update/category', [CategoriesController::class, 'updateCategory']);
     Route::post('delete/category', [CategoriesController::class, 'deleteCategory']);
+    
     Route::resource('product', ProductsController::class);
+    Route::post('update/product', [ProductsController::class, 'updateProduct']);
+    Route::post('delete/product', [ProductsController::class, 'deleteProduct']);
+
     Route::get('all/orders', [OrdersController::class, 'getAllOrders']);
     Route::post('make/payment', [OrdersController::class, 'makePayment']);
     Route::post('complete/order', [OrdersController::class, 'completeOrder']);
 
     Route::get('all/users', [UserController::class, 'getAllUsers']);
+    Route::post('update/user', [UserController::class, 'updateUser']);
+    Route::post('delete/user', [UserController::class, 'deleteUser']);
+
     Route::get('product', [ProductsController::class, 'getAllProducts']);
     Route::get('orders/count', [OrdersController::class, 'getCount']);
 });

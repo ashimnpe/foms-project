@@ -52,5 +52,12 @@ const data = [
   to: `${adminRoot}/users`,
   roles: [UserRole.Admin],
 },
+{
+  id: "salesreport",
+  icon: "iconsminds-pulse",
+  label: "Sales Report",
+  to: `${adminRoot}/salesreport`,
+  roles: [UserRole.Admin],
+},
 ];
 export default data;

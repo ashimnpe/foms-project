@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -19,16 +20,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -36,18 +27,25 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required|unique:user,name|alpha',
+            'email' => 'required',
+            'password' => 'required',
+            'role' => 'required'
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        ]);
+
+        try {
+            User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password,
+                'role' => $request->role,
+            ]);
+            return parent::resp(true, 'User Created!', 201);
+        } catch (Exception $ex) {
+            return parent::resp(false, $ex->getMessage(), 422);
+        }
     }
 
     /**
@@ -68,9 +66,22 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function updateUser(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($request->id);
+
+
+        try {
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password,
+                'role' => $request->role,
+            ]);
+            return parent::resp(true, 'User updated!', 201);
+        } catch (Exception $ex) {
+            return parent::resp(false, 'Failed User Updated!', 422);
+        }
     }
 
     /**
@@ -79,8 +90,14 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deleteUser()
     {
-        //
+        $user = User::findOrFail(request()->id);
+        try {
+            $user->delete();
+            return parent::resp(true, 'Successfully Deleted', 201);
+        } catch (Exception $ex) {
+            return parent::resp(false, 'Failed', 422);
+        }
     }
 }
