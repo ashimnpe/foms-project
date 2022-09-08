@@ -59,9 +59,9 @@ INSERT INTO `products` (`id`, `title`, `category_id`, `price`, `image`, `created
 (42, 'Lassi', 9, 80, '/food/cold_drinks/lassi.jpg', '2022-07-29 10:43:18', '2022-07-29 10:43:18');
 
 
-
 INSERT INTO `users` (`id`, `name`, `email`, `role`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Dipen Chand', 'dipen@gmail.com', 'admin', NULL, '$2y$10$1yrVtjDgaSAe/CkOKMRLOurztERAT/m..sNPzqP55MNgWVobkqoZq', NULL, NULL, NULL),
-(2, 'Ashim Neupane', 'ashim@gmail.com', 'chef', NULL, '$2y$10$1yrVtjDgaSAe/CkOKMRLOurztERAT/m..sNPzqP55MNgWVobkqoZq', NULL, NULL, NULL);
+(1, 'Dipen Chand', 'dipen@gmail.com', 'staff', NULL, '$2y$10$1yrVtjDgaSAe/CkOKMRLOurztERAT/m..sNPzqP55MNgWVobkqoZq', NULL, NULL, NULL),
+(2, 'Ashim Neupane', 'ashim@gmail.com', 'admin', NULL, '$2y$10$1yrVtjDgaSAe/CkOKMRLOurztERAT/m..sNPzqP55MNgWVobkqoZq', NULL, NULL, NULL),
+(3, 'Amar Neupane', 'amar@gmail.com', 'chef', NULL, '$2y$10$1yrVtjDgaSAe/CkOKMRLOurztERAT/m..sNPzqP55MNgWVobkqoZq', NULL, NULL, NULL);
 
 ```
