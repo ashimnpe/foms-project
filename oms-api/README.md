@@ -1,16 +1,17 @@
 ## DATABASE IMPORT
 ```
 
-INSERT INTO `categories` (`id`, `title`, `image`, `created_at`, `updated_at`) VALUES
-(1, 'Mo:Mo', '/category/chicken_momo.jpg', '2022-07-28 09:46:32', '2022-07-28 09:46:32'),
-(2, 'Chowmein', '/category/chicken_chowmein.jpg', '2022-07-28 09:46:39', '2022-07-28 09:46:39'),
-(3, 'Burger', '/category/chicken_burger.jpg', '2022-07-28 09:46:41', '2022-07-28 09:46:41'),
-(4, 'Sandwich', '/category/chicken_sandwich.jpg', '2022-07-29 10:19:24', '2022-07-29 10:19:29'),
-(5, 'Thukpa', '/category/egg_thukpa.jpg\n', '2022-07-29 10:19:36', '2022-07-29 10:19:40'),
-(6, 'Pizza', '/category/cheese_pizza.jpg\n', '2022-07-29 10:19:44', '2022-07-29 10:19:48'),
-(7, 'Snacks', '/category/french_fries.jpg', NULL, NULL),
-(8, 'Hot Drinks', '/category/black_tea.jpg', NULL, NULL),
-(9, 'Cold Drinks', '/category/drinks.jpg', '2022-07-29 10:42:51', '2022-07-29 10:42:51');
+INSERT INTO `categories` (`id`, `title`, `image`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Mo:Mo', '/categories/momo202209080653.jpg', '2022-09-08 06:30:11', '2022-09-08 06:53:29', NULL),
+(2, 'Chowmein', '/categories/chowmein202209080630.jpg', '2022-09-08 06:30:20', '2022-09-08 06:30:20', NULL),
+(3, 'Burger', '/categories/burger202209080630.jpg', '2022-09-08 06:30:47', '2022-09-08 06:30:47', NULL),
+(4, 'Pizza', '/categories/pizza202209080630.jpg', '2022-09-08 06:30:58', '2022-09-08 06:30:58', NULL),
+(5, 'Thukpa', '/categories/thukpa202209080631.jpg', '2022-09-08 06:31:07', '2022-09-08 06:31:07', NULL),
+(6, 'Biryani', '/categories/biryani202209080631.jpg', '2022-09-08 06:31:18', '2022-09-08 06:31:18', NULL),
+(7, 'Sandwich', '/categories/sandwich202209080631.jpg', '2022-09-08 06:31:32', '2022-09-08 06:31:32', NULL),
+(8, 'Snacks', '/categories/snacks202209080631.jpg', '2022-09-08 06:31:42', '2022-09-08 06:31:42', NULL),
+(9, 'Hot Drinks', '/categories/hot-drinks202209080631.jpg', '2022-09-08 06:31:55', '2022-09-08 06:31:55', NULL),
+(10, 'Cold Drinks', '/categories/cold-drinks202209080632.jpg', '2022-09-08 06:32:06', '2022-09-08 06:32:06', NULL);
 
 
 
