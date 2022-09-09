@@ -53,40 +53,43 @@
     </b-row>
 
     <b-modal ref="categoryModal" :title="modalTitle" hide-footer>
-        <b-form ref="categoryForm" @submit="submitCategory">
-          <div class="mb-3">
-            <label class="form-label">Category Name</label>
-            <input
-              type="text"
-              v-model="categoryForm.title"
-              class="form-control"
-              placeholder="Category Name"
-              aria-label="Full name"
-            />
+      <b-form @submit="submitCategory">
+        <div class="mb-3">
+          <label class="form-label">Category Name</label>
+          <input
+            type="text"
+            v-model="categoryForm.title"
+            class="form-control"
+            placeholder="Category Name"
+            aria-label="Full name"
+          />
+          <small class="text-danger" v-if="errors">
+            <ul>
+              <li v-for="(err, i) in errors.title" :key="i">
+                {{ err }}
+              </li>
+            </ul>
+          </small>
+        </div>
+        <div class="mb -3">
+          <label class="form-label">Image</label>
+          <b-form-file
+            v-model="categoryForm.image"
+            :state="Boolean(categoryForm.image)"
+            placeholder="Choose a file or drop it here..."
+            drop-placeholder="Drop file here..."
+          ></b-form-file>
+          <div class="mt-3">
+            Selected file:
+            {{ categoryForm.image && type === "new" ? categoryForm.image.name : categoryForm.url }}
           </div>
-          <div class="mb  -3">
-            <label class="form-label">Image</label>
-            <b-form-file
-              v-model="categoryForm.image"
-              :state="Boolean(categoryForm.image)"
-              placeholder="Choose a file or drop it here..."
-              drop-placeholder="Drop file here..."
-            ></b-form-file>
-            <div class="mt-3">
-              Selected file:
-              {{
-                categoryForm.image && type === "new"
-                  ? categoryForm.image.name
-                  : categoryForm.image
-              }}
-            </div>
-          </div>
+        </div>
 
-          <b-button variant="primary" type="submit" class="mr-1">
-            <template v-if="type === 'new'">Create</template>
-            <template v-else>Update</template>
-          </b-button>
-        </b-form>
+        <b-button variant="primary" type="submit" class="mr-1">
+          <template v-if="type === 'new'">Create</template>
+          <template v-else>Update</template>
+        </b-button>
+      </b-form>
     </b-modal>
   </div>
 </template>
@@ -107,11 +110,13 @@ export default {
       img: imageBaseUrl,
       categoryForm: {
         title: "",
-        image: "",
+        image: null,
+        url: ''
       },
-        type: "",
+      type: "",
       modalTitle: "",
       selectedCategoryId: "",
+      errors: []
     };
   },
   methods: {
@@ -131,7 +136,7 @@ export default {
           this.selectedCategoryId = id;
           const category = this.categories.filter((item) => item.id === id)[0];
           this.categoryForm.title = category.title;
-          this.categoryForm.image = category.image;
+          this.categoryForm.url = category.image;
         }
       }
       this.$refs["categoryModal"].show();
@@ -148,23 +153,29 @@ export default {
               "Content-Type": "multipart/form-data",
             },
           },
-        }).then((res) => {
-          if (res.success) {
-            this.fetchAllCategories();
-            this.$refs["categoryModal"].hide();
-            this.categoryForm = {};
-            this.$notify("success", "Success", res.result, {
+          }).then((res) => {
+            if (res.success) {
+              this.fetchAllCategories();
+              this.$refs["categoryModal"].hide();
+              this.categoryForm = {};
+              this.$notify("success", "Success", res.result, {
+                duration: 3000,
+                permanent: false,
+              });
+            } else {
+              this.$notify("error", "Error", res.result, {
+                duration: 3000,
+                permanent: false,
+              });
+            }
+        }).catch(err => {
+          const errors = err.response.data
+          this.errors = errors.errors
+          this.$notify("error", "Error", errors, {
               duration: 3000,
               permanent: false,
             });
-          }
-          else{
-            this.$notify("success", message, res.result, {
-              duration: 3000,
-              permanent: false,
-            });
-          }
-        });
+        })
       } else {
         formData.append("id", this.selectedCategoryId);
         updateCategory(formData, {
@@ -220,5 +231,14 @@ export default {
   width: 96px;
   height: 64px;
   object-fit: cover;
+}
+
+ul{
+  list-style: none;
+  font-size: 16px;
+}
+
+.err{
+  border: 1px solid #f00;
 }
 </style>

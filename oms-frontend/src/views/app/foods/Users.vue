@@ -41,8 +41,8 @@
       </b-colxx>
     </b-row>
 
-    <b-modal ref="UserModal" :title="modalTitle" hide-footer>
-      <b-form ref="categoryForm" @submit="submitUser">
+    <b-modal ref="userModal" :title="modalTitle" hide-footer>
+      <b-form ref="userForm" @submit="submitUser">
         <div class="mb-3">
           <label class="form-label">Full Name</label>
           <input
@@ -50,35 +50,39 @@
             v-model="userForm.name"
             class="form-control"
             placeholder="Full Name"
-            aria-label="Full name"
           />
         </div>
         <div class="mb-3">
           <label class="form-label">Email</label>
           <input
+          :disabled="type === 'edit'"
             type="text"
             v-model="userForm.email"
+            autocomplete="false"
             class="form-control"
             placeholder="Email"
-            aria-label="Full name"
           />
-        </div>
-        <div v-if="type === 'new'" class="mb-3">
+        </div>  
+        <div class="mb-3">
           <label class="form-label">Password</label>
           <input
+            :disabled="type === 'edit'"
             type="password"
             v-model="userForm.password"
             class="form-control"
             placeholder="Password"
-            aria-label="Full name"
           />
         </div>
         <div class="mb-3">
-          <label class="form-label">Role</label>
-          <select v-model="userForm.role" class="form-select form-control">
-            <option value="1" >Staff</option>
-            <option value="2">Chef</option>
-          </select>
+          <!-- <label class="form-label">Role</label>
+          <input
+            type="text"
+            v-model="userForm.role"
+            class="form-control"
+            placeholder="Role"
+          /> -->
+
+          <b-form-select v-model="userForm.role" :options="roles"></b-form-select>
 
         </div>
 
@@ -98,15 +102,21 @@ export default {
   data() {
     return {
       users: [],
-      type: "",
-      modalTitle: "",
       userForm: {
         name: "",
         email: "",
         password: "",
-        role: "",
+        role: null,
       },
-      selectedCategoryId: "",
+      type: "",
+      modalTitle: "",
+      selectedUserId: "",
+      roles: [
+        {value: null, text: '--Select a Role--'},
+        {value: 'admin', text: 'Admin'},
+        {value: 'staff', text: 'Staff'},
+        {value: 'chef', text: 'Chef'},
+      ]
     };
   },
   methods: {
@@ -115,31 +125,34 @@ export default {
         this.users = res.result;
       });
     },
-    showModal(type, id) {   
-        this.selectedUserId = "";
+    showModal(type, id) {
+      this.selectedUserId = "";
       this.type = type;
       if (type === "new") {
         this.modalTitle = "Create New User";
+        this.userForm = {};
+
       } else {
         this.modalTitle = "Edit User";
         if (id !== null) {
           this.selectedUserId = id;
-          const user= this.users.filter((item) => item.id === id)[0];
+          const user = this.users.filter((item) => item.id === id)[0];
           this.userForm.name = user.name;
           this.userForm.email = user.email;
           this.userForm.password= user.password;
           this.userForm.role= user.role;
         }
       }
-      this.$refs["UserModal"].show();
+      this.$refs["userModal"].show();
     },
     submitUser(e) {
       e.preventDefault();
       const formData = new FormData();
       formData.append("name", this.userForm.name);
-      formData.append("title", this.userForm.email);
+      formData.append("email", this.userForm.email);
       formData.append("password", this.userForm.password);
       formData.append("role", this.userForm.role);
+      
       if (this.type === "new") {
         createUser(formData, {
           headers: {
@@ -153,6 +166,18 @@ export default {
             this.$refs["userModal"].hide();
             this.userForm = {};
             this.$notify("success", "Success", res.result, {
+              duration: 3000,
+              permanent: false,
+              
+
+            });
+          }
+        }).then((res) => {
+          if (!res.success) {
+            this.fetchAllUsers();
+            this.$refs["userModal"].hide();
+            this.userForm = {};
+            this.$notify("error", "Success", res.result, {
               duration: 3000,
               permanent: false,
             });

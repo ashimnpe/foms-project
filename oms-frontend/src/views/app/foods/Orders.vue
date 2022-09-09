@@ -55,7 +55,7 @@
                   </b-button>
                 </td>
                 
-                <td>{{ order.created_at }}</td>
+                <td>{{ moment(order.created_at).fromNow() }}</td>
               </tr>
             </tbody>
           </table>
@@ -72,6 +72,7 @@
 
 <script>
 import { getOrders } from "@/api/orders";
+import moment from 'moment'
 export default {
   data() {
     return {
@@ -100,6 +101,7 @@ export default {
   },
   mounted() {
     this.fetchAllOrders();
+    this.moment = moment
   },
 };
 </script>

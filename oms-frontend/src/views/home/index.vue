@@ -58,7 +58,7 @@
                     <b-card class="my-2" no-body>
                       <div class="position-relative">
                         <img
-                          :src="img + product.image"
+                          :src="`${imgUrl}/storage${product.image}`"
                           class="card-img-top"
                         />
                         <b-badge
@@ -173,7 +173,7 @@ export default {
       products: [],
       netTotal: 0,
       orderId: "",
-      img: imageBaseUrl,
+      imgUrl: imageBaseUrl,
       simplelineicons,
       iconsmind,
       productTable: {
