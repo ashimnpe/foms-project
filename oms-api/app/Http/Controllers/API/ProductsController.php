@@ -5,8 +5,13 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image as Image;
+
 
 class ProductsController extends Controller
 {
@@ -22,7 +27,7 @@ class ProductsController extends Controller
 
     public function getAllProducts()
     {
-        $products = Product::all();
+        $products = Product::with('category')->get();
         return parent::resp(true, $products, 200);
     }
 
@@ -36,7 +41,7 @@ class ProductsController extends Controller
     {
         $request->validate([
             'title' => 'required|unique:products,title',
-            'category_id' => 'required|numeric',
+            'category_id' => 'required',
             'price' => 'required|numeric'
         ]);
 
@@ -50,7 +55,7 @@ class ProductsController extends Controller
 
         $fileName = Str::slug($request->title, '-') . Carbon::now()->format('Ymdhi');
         $filenameWithExt = $fileName . '.' . $image->extension();
-        $path = "/categories/{$filenameWithExt}";
+        $path = "/products/{$filenameWithExt}";
 
         try {
             Product::create([
@@ -113,7 +118,7 @@ class ProductsController extends Controller
 
                 $fileName = Str::slug($request->title, '-') . Carbon::now()->format('Ymdhi');
                 $filenameWithExt = $fileName . '.' . $image->extension();
-                $path = "/categories/{$filenameWithExt}";
+                $path = "/products/{$filenameWithExt}";
 
                 Storage::put($path, $img->__toString());
             }

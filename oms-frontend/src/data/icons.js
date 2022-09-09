@@ -1,4 +1,4 @@
-export const simplelineicons = [
+  export const simplelineicons = [
   'simple-icon-user',
   'simple-icon-people',
   'simple-icon-user-female',

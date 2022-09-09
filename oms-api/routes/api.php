@@ -4,8 +4,8 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoriesController;
 use App\Http\Controllers\API\OrdersController;
 use App\Http\Controllers\API\ProductsController;
+use App\Http\Controllers\API\SalesController;
 use App\Http\Controllers\API\UserController;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 
@@ -30,9 +30,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('complete/order', [OrdersController::class, 'completeOrder']);
 
     Route::get('all/users', [UserController::class, 'getAllUsers']);
+    Route::post('user', [UserController::class, 'store']);
     Route::post('update/user', [UserController::class, 'updateUser']);
     Route::post('delete/user', [UserController::class, 'deleteUser']);
 
     Route::get('product', [ProductsController::class, 'getAllProducts']);
     Route::get('orders/count', [OrdersController::class, 'getCount']);
+
+    Route::get('daily/sales', [SalesController::class], 'getDailySales');
 });
