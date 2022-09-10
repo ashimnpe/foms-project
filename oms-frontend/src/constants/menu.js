@@ -53,10 +53,10 @@ const data = [
   roles: [UserRole.Admin],
 },
 {
-  id: "salesreport",
+  id: "report",
   icon: "iconsminds-pulse",
-  label: "Sales Report",
-  to: `${adminRoot}/salesreport`,
+  label: "Report",
+  to: `${adminRoot}/report`,
   roles: [UserRole.Admin],
 },
 ];

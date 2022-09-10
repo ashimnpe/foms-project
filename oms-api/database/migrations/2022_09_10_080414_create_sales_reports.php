@@ -15,6 +15,12 @@ return new class extends Migration
     {
         Schema::create('sales_reports', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->integer('qty');
+            $table->double('price');
+            $table->double('net_total');
+            $table->double('grand_total');
+            $table->foreignId('order_detail_id')->constrained();
             $table->timestamps();
         });
     }

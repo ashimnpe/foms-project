@@ -15,4 +15,8 @@ class OrderDetail extends Model
     {
         return $this->hasOne(Product::class, 'id', 'product_id');
     }
+
+    public function report(){
+        return $this->belongsTo(Report::class, 'id','report_id');
+    }
 }
