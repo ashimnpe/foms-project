@@ -55,7 +55,7 @@
                   </b-button>
                 </td>
                 
-                <td>{{ moment(order.created_at).fromNow() }}</td>
+                <td>{{ moment(order.created_at).format('YYYY-MM-DD h:m') }}</td>
               </tr>
             </tbody>
           </table>

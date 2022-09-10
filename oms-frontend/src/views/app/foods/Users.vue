@@ -81,7 +81,7 @@
             class="form-control"
             placeholder="Role"
           /> -->
-
+          <label class="form-label">Role</label>
           <b-form-select v-model="userForm.role" :options="roles"></b-form-select>
 
         </div>
@@ -111,6 +111,7 @@ export default {
       type: "",
       modalTitle: "",
       selectedUserId: "",
+      
       roles: [
         {value: null, text: '--Select a Role--'},
         {value: 'admin', text: 'Admin'},
@@ -168,21 +169,22 @@ export default {
             this.$notify("success", "Success", res.result, {
               duration: 3000,
               permanent: false,
-              
-
-            });
-          }
-        }).then((res) => {
-          if (!res.success) {
-            this.fetchAllUsers();
-            this.$refs["userModal"].hide();
-            this.userForm = {};
-            this.$notify("error", "Success", res.result, {
+            }); 
+          }else {
+              this.$notify("error", "Error", res.result, {
+                duration: 3000,
+                permanent: false,
+              });
+            }
+        }).catch(err => {
+          // const errors = err.response.data
+          // this.errors = errors.errors
+          const errors = "User already exists!"
+          this.$notify("error", "Error", errors, {
               duration: 3000,
               permanent: false,
             });
-          }
-        });
+        })
       } else {
         formData.append("id", this.selectedUserId);
         updateUser(formData, {

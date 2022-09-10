@@ -15,27 +15,30 @@
     <b-row>
       <b-colxx xxs="12">
         <b-card>
+          <span class="refresh-icon" @click="reloadPage">
+            <i class="simple-icon-refresh"></i>
+          </span>
           <table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Image</th>
-                <th scope="col">Category Name</th>
-                <th scope="col">Action</th>
+                <th scope="col" class="text-center">Image</th>
+                <th scope="col" class="text-center">Category Name</th>
+                <th scope="col" class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="(category, i) in categories" :key="i">
                 <td>{{ category.id }}</td>
-                <td>
+                <td class="text-center">
                   <img
                     class="category-image"
                     style="width: 96px"
                     :src="`${img}/storage${category.image}`"
                   />
                 </td>
-                <td>{{ category.title }}</td>
-                <td>
+                <td class="text-center">{{ category.title }}</td>
+                <td class="text-center">
                   <b-button @click="showModal('edit', category.id)"
                     >Edit</b-button
                   >
@@ -63,13 +66,13 @@
             placeholder="Category Name"
             aria-label="Full name"
           />
-          <small class="text-danger" v-if="errors">
+          <!-- <small class="text-danger" v-if="errors">
             <ul>
               <li v-for="(err, i) in errors.title" :key="i">
                 {{ err }}
               </li>
             </ul>
-          </small>
+          </small> -->
         </div>
         <div class="mb -3">
           <label class="form-label">Image</label>
@@ -81,7 +84,11 @@
           ></b-form-file>
           <div class="mt-3">
             Selected file:
-            {{ categoryForm.image && type === "new" ? categoryForm.image.name : categoryForm.url }}
+            {{
+              categoryForm.image && type === "new"
+                ? categoryForm.image.name
+                : categoryForm.url
+            }}
           </div>
         </div>
 
@@ -102,6 +109,7 @@ import {
   deleteCategory,
 } from "@/api/categories";
 import { imageBaseUrl } from "@/constants/config";
+import moment from "moment";
 
 export default {
   data() {
@@ -111,12 +119,12 @@ export default {
       categoryForm: {
         title: "",
         image: null,
-        url: ''
+        url: "",
       },
       type: "",
       modalTitle: "",
       selectedCategoryId: "",
-      errors: []
+      errors: [],
     };
   },
   methods: {
@@ -125,11 +133,15 @@ export default {
         this.categories = res.result;
       });
     },
+    reloadPage() {
+      window.location.reload();
+    },
     showModal(type, id) {
       this.selectedCategoryId = "";
       this.type = type;
       if (type === "new") {
         this.modalTitle = "Create New Category";
+        this.categoryForm = {};
       } else {
         this.modalTitle = "Edit Category";
         if (id !== null) {
@@ -153,7 +165,8 @@ export default {
               "Content-Type": "multipart/form-data",
             },
           },
-          }).then((res) => {
+        })
+          .then((res) => {
             if (res.success) {
               this.fetchAllCategories();
               this.$refs["categoryModal"].hide();
@@ -168,14 +181,16 @@ export default {
                 permanent: false,
               });
             }
-        }).catch(err => {
-          const errors = err.response.data
-          this.errors = errors.errors
-          this.$notify("error", "Error", errors, {
+          })
+          .catch((err) => {
+            // const errors = err.response.data
+            // this.errors = errors.errors
+            const errors = "Category already exists!";
+            this.$notify("error", "Error", errors, {
               duration: 3000,
               permanent: false,
             });
-        })
+          });
       } else {
         formData.append("id", this.selectedCategoryId);
         updateCategory(formData, {
@@ -188,7 +203,7 @@ export default {
           if (res.success) {
             this.fetchAllCategories();
             this.$refs["categoryModal"].hide();
-            this.categoryForm = {};
+            // this.categoryForm = {};
             this.$notify("success", "Success", res.result, {
               duration: 3000,
               permanent: false,
@@ -222,6 +237,7 @@ export default {
   },
   mounted() {
     this.fetchAllCategories();
+    this.moment = moment;
   },
 };
 </script>
@@ -233,12 +249,17 @@ export default {
   object-fit: cover;
 }
 
-ul{
+ul {
   list-style: none;
   font-size: 16px;
 }
 
-.err{
+.err {
   border: 1px solid #f00;
+}
+
+.refresh-icon {
+  cursor: pointer;
+  float: right;
 }
 </style>

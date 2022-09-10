@@ -71,6 +71,7 @@ class CategoriesController extends Controller
             Storage::put($path, $img->__toString());
 
             return parent::resp(true, 'Category Created!', 201);
+
         } catch (Exception $ex) {
             return parent::resp(false, $ex->getMessage(), 422);
         }
