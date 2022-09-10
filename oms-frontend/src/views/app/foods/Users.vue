@@ -12,6 +12,9 @@
     <b-row>
       <b-colxx xxs="12">
         <b-card>
+          <span class="refresh-icon" @click="reloadPage">
+            <i class="simple-icon-refresh"></i>
+          </span>
           <table class="table">
             <thead>
               <tr>
@@ -126,6 +129,9 @@ export default {
         this.users = res.result;
       });
     },
+    reloadPage() {
+      window.location.reload();
+    },
     showModal(type, id) {
       this.selectedUserId = "";
       this.type = type;
@@ -231,6 +237,14 @@ export default {
   },
   mounted() {
     this.fetchAllUsers();
+    this.moment = moment;
   },
 };
 </script>
+
+<style>
+  .refresh-icon {
+  cursor: pointer;
+  float: right;
+}
+</style>

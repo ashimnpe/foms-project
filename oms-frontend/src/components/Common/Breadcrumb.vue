@@ -2,7 +2,7 @@
   <span>
     <h1 v-if="heading && heading.length>0">{{ heading }}</h1>
     <b-nav class="pt-0 breadcrumb-container d-none d-sm-block d-lg-inline-block">
-      <b-breadcrumb :items="items" />
+      <b-breadcrumb :items="items" class="text-uppercase" />
     </b-nav>
   </span>
 </template>
@@ -34,8 +34,8 @@ export default {
       this.items.push({
         text:
           "/" + sub !== adminRoot
-            ? this.$t("menu." + sub)
-            : this.$t("menu.home"),
+            ? this.$t(sub)
+            : this.$t(home),
         to: this.getUrl(path, sub, index)
       });
     });

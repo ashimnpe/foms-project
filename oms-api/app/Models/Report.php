@@ -9,17 +9,22 @@ class Report extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'title', 'order_id','product_id','quantity', 'total', 'grand_total'
-    ];
+    // protected $fillable = [
+    //     'title', 'order_detail_id','quantity', 'total', 'grand_total'
+    // ];
+
+    protected $guarded = [];
+
 
     public function order_details()
     {
         return $this->hasMany(OrderDetail::class);
     }
 
-    public function products()
+    public function product()
     {
         return $this->hasOne(Product::class);
     }
+
+
 }

@@ -1,8 +1,8 @@
 import request from '@/services/request';
 
-export const getSales = () => {
+export const getReport = () => {
     return request({
-        url: 'all/sales',
+        url: 'all/report',
         method: 'get'
     })
 }   
