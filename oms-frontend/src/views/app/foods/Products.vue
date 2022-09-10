@@ -3,19 +3,23 @@
     <b-row>
       <b-colxx xxs="12">
         <piaf-breadcrumb heading="PRODUCTS" />
+
         <b-button
           variant="success"
           class="float-right"
-          @click="showModal('new', null)"          
+          @click="showModal('new', null)"
           >Add Product</b-button
         >
         <div class="separator mb-5"></div>
       </b-colxx>
     </b-row>
-    <b-row>
 
+    <b-row>
       <b-colxx xxs="12">
         <b-card>
+          <span class="refresh-icon" @click="reloadPage">
+            <i class="simple-icon-refresh"></i>
+          </span>
           <table class="table">
             <thead>
               <tr>
@@ -29,12 +33,21 @@
             <tbody>
               <tr v-for="(product, i) in products" :key="i">
                 <td>{{ product.id }}</td>
-                <td><img style="width: 150px" :src="`${img}/storage${product.image}`" /></td>
-                <td>{{ product.title }}</td>
-                <td>{{ product.price }}</td>
                 <td>
-                  <b-button @click="showModal('edit', product.id)">Edit</b-button> 
-                  <b-button @click="deleteProduct(product.id)" variant="danger">Delete</b-button>
+                  <img
+                    style="width: 150px"
+                    :src="`${img}/storage${product.image}`"
+                  />
+                </td>
+                <td>{{ product.title }}</td>
+                <td class="font-weight-bold">Rs. {{ product.price }}</td>
+                <td>
+                  <b-button @click="showModal('edit', product.id)"
+                    >Edit</b-button
+                  >
+                  <b-button @click="deleteProduct(product.id)" variant="danger"
+                    >Delete</b-button
+                  >
                 </td>
               </tr>
             </tbody>
@@ -47,8 +60,12 @@
       <b-form ref="productForm" @submit="submitProduct">
         <div class="mb-3">
           <label class="form-label">Category Title</label>
-          <select v-model="productForm.category_id" class="form-control" >
-            <option v-for="(category, i) in categories" :value="category.id" :key="i">
+          <select v-model="productForm.category_id" class="form-control">
+            <option
+              v-for="(category, i) in categories"
+              :value="category.id"
+              :key="i"
+            >
               {{ category.title }}
             </option>
           </select>
@@ -86,7 +103,11 @@
           ></b-form-file>
           <div class="mt-3">
             Selected file:
-            {{ productForm.image && type === "new" ? productForm.image.name : productForm.url }}
+            {{
+              productForm.image && type === "new"
+                ? productForm.image.name
+                : productForm.url
+            }}
           </div>
         </div>
 
@@ -96,12 +117,35 @@
         </b-button>
       </b-form>
     </b-modal>
+    <b-colxx xxs="12">
+      <b-pagination-nav
+            size="sm"
+            align="center"
+            :number-of-pages="3"
+            :link-gen="linkGen"
+            v-model="currentPage"
+            :per-page="5"
+          >
+            <template v-slot:next-text>
+              <i class="simple-icon-arrow-right"/>
+            </template>
+            <template v-slot:prev-text>
+              <i class="simple-icon-arrow-left"/>
+            </template>
+            <template v-slot:first-text>
+              <i class="simple-icon-control-start"/>
+            </template>
+            <template v-slot:last-text>
+              <i class="simple-icon-control-end"/>
+            </template>
+          </b-pagination-nav>
+    </b-colxx>
   </div>
 </template>
 
-<script>
-  import { getCategories } from "@/api/categories";
-import { getProducts, createProduct, updateProduct, deleteProduct } from "@/api/products";
+ <script>
+import { getCategories } from "@/api/categories";
+import { createProduct, updateProduct, deleteProduct } from "@/api/products";
 import { imageBaseUrl } from "@/constants/config";
 
 export default {
@@ -116,25 +160,31 @@ export default {
         title: "",
         price: "",
         image: null,
-        url: ''
+        url: "",
       },
       type: "",
       modalTitle: "",
       selectedProductId: "",
+      errors: [],
     };
   },
   methods: {
+    linkGen(pageNum) {
+      return "#page/" + pageNum + "/foobar";
+    },
     fetchAllCategories() {
       getCategories().then((res) => {
         const categories = res.result;
-        const products = []
-        this.categories = categories
-        categories.map((category)  => {
-          products.push(...category.products)
-        })
-        this.products = products
-        
+        const products = [];
+        this.categories = categories;
+        categories.map((category) => {
+          products.push(...category.products);
+        });
+        this.products = products;
       });
+    },
+    reloadPage() {
+      window.location.reload();
     },
     showModal(type, id) {
       this.selectedProductId = "";
@@ -142,7 +192,6 @@ export default {
       if (type === "new") {
         this.modalTitle = "Add New Product";
         this.productForm = {};
-
       } else {
         this.modalTitle = "Edit Product";
         if (id !== null) {
@@ -156,7 +205,7 @@ export default {
         }
       }
       this.$refs["productModal"].show();
-    },    
+    },
     submitProduct(e) {
       e.preventDefault();
       const formData = new FormData();
@@ -171,29 +220,34 @@ export default {
               "Content-Type": "multipart/form-data",
             },
           },
-        }).then((res) => {
+        })
+          .then((res) => {
             if (res.success) {
-              this.fetchAllProducts();
+              this.fetchAllCategories();
               this.$refs["productModal"].hide();
               this.productForm = {};
               this.$notify("success", "Success", res.result, {
                 duration: 3000,
                 permanent: false,
               });
-            } else {
-              this.$notify("error", "Error", res.result, {
-                duration: 3000,
-                permanent: false,
-              });
+              // } else {
+              //   this.$notify("error", "Error", res.result, {
+              //     duration: 3000,
+              //     permanent: false,
+              //   });
+              // }
             }
-        }).catch(err => {
-          const errors = err.response.data
-          this.errors = errors.errors
-          this.$notify("error", "Error", errors, {
+          })
+          .catch((err) => {
+            console.log(err);
+            // const errors = err.response.data
+            // this.errors = errors.errors
+            const errors = "Product already exists!";
+            this.$notify("error", "Error", errors, {
               duration: 3000,
               permanent: false,
             });
-        })
+          });
       } else {
         formData.append("id", this.selectedProductId);
         updateProduct(formData, {
@@ -204,7 +258,7 @@ export default {
           },
         }).then((res) => {
           if (res.success) {
-            this.fetchAllProducts();
+            this.fetchAllCategories();
             this.$refs["productModal"].hide();
             this.productForm = {};
             this.$notify("success", "Success", res.result, {
@@ -245,4 +299,7 @@ export default {
 </script>
 
 <style>
+.refresh-icon {
+  cursor: pointer;
+}
 </style>

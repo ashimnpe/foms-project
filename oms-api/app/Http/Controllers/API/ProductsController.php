@@ -8,6 +8,7 @@ use App\Models\Product;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image as Image;
@@ -22,7 +23,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        return parent::resp(true, Category::with('products')->get(), 200);
+        $cateogry = Category::with('products')->get();
+        return parent::resp(true, $cateogry, 200);
     }
 
     public function getAllProducts()

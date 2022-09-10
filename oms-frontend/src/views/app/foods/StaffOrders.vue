@@ -13,7 +13,7 @@
             <thead>
               <tr>
                 <th scope="col">Order #</th>
-                <th scope="col">Action</th>
+                <th scope="col" class="text-center" >Action</th>
                 <th class="text-right" scope="col">Grand Total</th>
                 <th class="text-center" scope="col">Order Status</th>
                 <th scope="col">Payment Status</th>
@@ -59,7 +59,7 @@
                   </b-button>
                 </td>
                 
-                <td>{{ order.created_at }}</td>
+                <td>{{ moment(order.created_at).format('YYYY-MM-DD h:m') }}</td>
               </tr>
             </tbody>
           </table>
@@ -76,6 +76,7 @@
 
 <script>
 import { getOrders, makePayment } from "@/api/orders";
+import moment from 'moment'
 
 export default {
   data() {
@@ -139,11 +140,13 @@ export default {
         })
         .catch((err) => {
           alert(err.message);
-        });
+        });w
     },
   },
   mounted() {
     this.fetchAllOrders();
+    this.moment = moment
+
   },
 };
 </script>
