@@ -1,7 +1,7 @@
 <template>
   <div class="icon-cards-row" >
     <glide-component :settings="glideIconsOption">
-      <icon-card 
+      <!-- <icon-card 
         title="Pending Orders" 
         icon="iconsminds-clock" 
         :value="count.pending"
@@ -23,9 +23,27 @@
       title="Staffs" 
         icon="iconsminds-user"
         :value="count.user"
-      />
+      /> -->
       <!-- <icon-card :title="$t('dashboards.new-comments')" icon="iconsminds-mail-read" :value="25" /> -->
     </glide-component>
+
+    <draggable class="row icon-cards-row mb-2">
+            <b-colxx xxs="6" sm="4" md="3" lg="2">
+                <icon-card :title="$t('dashboards.pending-orders')" icon="iconsminds-clock" :value="count.pending" />
+            </b-colxx>
+            <b-colxx xxs="6" sm="4" md="3" lg="2">
+                <icon-card :title="$t('dashboards.completed-orders')" icon="iconsminds-basket-coins"  :value="count.completed" />
+            </b-colxx>
+            <b-colxx xxs="6" sm="4" md="3" lg="2">
+                <icon-card title="Canceled Orders"  icon="simple-icon-close"  :value="count.canceled" />
+            </b-colxx>
+            <b-colxx xxs="6" sm="4" md="3" lg="2">
+                <icon-card title="Total Orders"  icon="iconsminds-coffee" :value="count.total" />
+            </b-colxx>
+             <b-colxx xxs="6" sm="4" md="3" lg="2">
+                <icon-card title="Users"  icon="iconsminds-user"  :value="count.user" />
+            </b-colxx>
+        </draggable>
   </div>
 </template>
 <script>

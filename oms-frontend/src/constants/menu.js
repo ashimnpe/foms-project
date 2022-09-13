@@ -55,8 +55,15 @@ const data = [
 {
   id: "report",
   icon: "iconsminds-pulse",
-  label: "Report",
+  label: "Daily Report",
   to: `${adminRoot}/report`,
+  roles: [UserRole.Admin],
+},
+{
+  id: "monthlyreport",
+  icon: "iconsminds-remove-cart",
+  label: "Monthly Report",
+  to: `${adminRoot}/monthlyreport`,
   roles: [UserRole.Admin],
 },
 ];

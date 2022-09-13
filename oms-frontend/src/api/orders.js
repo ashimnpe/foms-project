@@ -23,6 +23,15 @@ export const completeOrder = (parameter) => {
     })
 }
 
+
+export const cancelOrder = (parameter) => {
+    return request({
+        url: 'cancel/order',
+        method: 'post',
+        data: parameter
+    })
+}
+
 export const getCount = () => {
     return request({
         url: 'orders/count',

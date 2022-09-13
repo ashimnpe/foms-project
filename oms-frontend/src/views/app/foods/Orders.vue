@@ -9,13 +9,16 @@
     <b-row>
       <b-colxx xxs="12">
         <b-card>
-          <table class="table">
+          <span class="refresh-icon" @click="reloadPage">
+            <i class="simple-icon-refresh"></i>
+          </span>
+          <table class="table  table-striped">
             <thead>
               <tr>
                 <th scope="col">Order #</th>
-                <th class="text-right" scope="col">Action</th>
-                <th class="text-right" scope="col">Grand Total</th>
-                <th class="text-center" scope="col">Order Status</th>
+                <th class="text-center" scope="col">Action</th>
+                <th class="text-center" scope="col">Grand Total</th>
+                <th scope="col">Order Status</th>
                 <th scope="col">Payment Status</th>
                 <th scope="col">Order Placed on</th>
               </tr>
@@ -30,13 +33,13 @@
                   >
                 </td>
 
-                <td class="text-right font-weight-bold">
+                <td class="text-center font-weight-bold">
                   Rs.{{ order.grand_total }}
                 </td>
 
-                <td class="text-center">
+                <td>
                   <b-button
-                    class="text-capitalize"
+                    class="text-capitalize text-center"
                     disabled
                     pill
                     :variant="order.order_status === 'Completed' ? 'primary' : 'outline-primary'"
@@ -56,6 +59,7 @@
                 </td>
                 
                 <td>{{ moment(order.created_at).format('YYYY-MM-DD h:m') }}</td>
+                
               </tr>
             </tbody>
           </table>
@@ -91,6 +95,9 @@ export default {
       getOrders().then((res) => {
         this.orders = res.result;
       });
+    },  
+    reloadPage() {
+      window.location.reload();
     },
     showDetail(id) {
       this.$refs["orderDetail"].show();
@@ -105,3 +112,10 @@ export default {
   },
 };
 </script>
+
+<style>
+  .refresh-icon {
+  cursor: pointer;
+  float: right;
+}
+</style>

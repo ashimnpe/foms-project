@@ -13,14 +13,13 @@
         <div class="separator mb-5"></div>
       </b-colxx>
     </b-row>
-
     <b-row>
       <b-colxx xxs="12">
         <b-card>
           <span class="refresh-icon" @click="reloadPage">
             <i class="simple-icon-refresh"></i>
           </span>
-          <table class="table">
+          <table class="table table-hover">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -117,7 +116,7 @@
         </b-button>
       </b-form>
     </b-modal>
-    <b-colxx xxs="12">
+    <!-- <b-colxx xxs="12">
       <b-pagination-nav
             size="sm"
             align="center"
@@ -139,7 +138,7 @@
               <i class="simple-icon-control-end"/>
             </template>
           </b-pagination-nav>
-    </b-colxx>
+    </b-colxx> -->
   </div>
 </template>
 
@@ -269,7 +268,7 @@ export default {
         });
       }
     },
-    deleteCategory(id) {
+    deleteProduct(id) {
       this.$bvModal
         .msgBoxConfirm("Are you sure want to Delete?")
         .then((value) => {
@@ -278,7 +277,7 @@ export default {
               id: id,
             }).then((res) => {
               if (res.success) {
-                this.fetchAllProducts();
+                this.fetchAllCategories();
                 this.$notify("error", "Success", res.result, {
                   duration: 3000,
                   permanent: false,

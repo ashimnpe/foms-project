@@ -1,8 +1,9 @@
 import request from '@/services/request';
 
-export const getReport = () => {
+export const getReport = (params) => {
     return request({
-        url: 'all/report',
-        method: 'get'
+        url: 'daily/report',
+        method: 'post',
+        data: params
     })
 }   

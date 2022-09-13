@@ -7,6 +7,7 @@ export const buyUrl = 'https://1.envato.market/nEyZa'
 export const apiUrl = 'https://api.coloredstrategies.com';
 export const baseUrl = 'http://localhost/api/';
 export const imageBaseUrl = 'http://localhost';
+// export const currentUser;
 
 export const subHiddenBreakpoint = 1440
 export const menuHiddenBreakpoint = 768

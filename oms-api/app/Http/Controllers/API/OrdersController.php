@@ -45,7 +45,7 @@ class OrdersController extends Controller
     public function getAllOrders()
     {
         $orders = Order::with(['order_details' => function ($query) {
-            $query->with('product')->get();
+            $query->orderBy('created_at')->with('product')->get();
         }])->get();
 
         return parent::resp(true, $orders, 200);
@@ -77,6 +77,24 @@ class OrdersController extends Controller
         }
     }
 
+    public function cancelOrder(Request $request)
+    {
+        try {
+            $order = Order::findOrFail($request->order_id);
+            $order_details = OrderDetail::findOrFail($request->order_details_id);
+            $order->update([
+                'order_status' => 'canceled',
+            ]);
+            $order_details->update([
+                'order_quantity' => 0
+            ]);
+
+            return parent::resp(true, 'Order canceled', 201);
+        } catch (\Throwable $th) {
+            return parent::resp(false, $th->getMessage(), 400);
+        }
+    }
+
     public function getCount()
     {
         $user = User::count();
@@ -86,7 +104,8 @@ class OrdersController extends Controller
             'user' => $user,
             'total' => $order->count(),
             'pending' => $order->where('status', 'processing')->count(),
-            'completed' => $order->where('status', 'Completed')->count()
+            'completed' => $order->where('status', 'Completed')->count(),
+            'canceled' => $order->where('status', 'canceled')->count()
         ];
         return parent::resp(true, $count);
     }

@@ -29,7 +29,8 @@
                     >Detail</b-button
                   >
                   
-                  <b-button :disabled="order.order_status === 'Completed'" variant="primary" @click="orderCheck(order.id)"
+                  <b-button :disabled="order.order_status === 'Completed' || order.order_status === 'canceled'" @click="orderCheck(order.id)"
+                  :variant="order.order_status === 'canceled' ? 'danger' : 'primary'"
                     >Order Complete</b-button
                   >
                 </td>

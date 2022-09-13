@@ -29,7 +29,7 @@
                     >Detail</b-button
                   >
 
-                  <b-button :disabled="order.payment_status === 'Paid'" variant="primary" @click="payNow(order.id)"
+                  <b-button :disabled="order.payment_status === 'Paid' || order.order_status === 'canceled'" variant="primary" @click="payNow(order.id)"
                     >Payment</b-button
                   >
                 </td>
@@ -60,6 +60,11 @@
                 </td>
                 
                 <td>{{ moment(order.created_at).format('YYYY-MM-DD h:m') }}</td>
+                <td>
+                  <b-button :disabled="order.order_status === 'canceled'" variant="danger" @click="cancelOrder(order.id)"
+                    ><i class="simple-icon-trash"></i></b-button
+                  >
+                </td>
               </tr>
             </tbody>
           </table>
@@ -75,7 +80,7 @@
 </template>
 
 <script>
-import { getOrders, makePayment } from "@/api/orders";
+import { getOrders, makePayment, cancelOrder } from "@/api/orders";
 import moment from 'moment'
 
 export default {
@@ -140,7 +145,46 @@ export default {
         })
         .catch((err) => {
           alert(err.message);
-        });w
+        });
+    },
+    cancelOrder(id) {
+      const vm = this
+      this.$bvModal
+        .msgBoxConfirm("Are you sure want to cancel order?")
+        .then((value) => {
+          if (value) {
+            // call backend
+            cancelOrder({
+              order_id: id,
+            }).then((res) => {
+              if (res.success) {
+                vm.fetchAllOrders();
+                vm.$notify(
+                  "error",
+                  "Success",
+                  res.result,
+                  {
+                    duration: 3000,
+                    permanent: false,
+                  }
+                );
+              } else {
+                vm.$notify(
+                  "error",
+                  "Failed",
+                  res.result,
+                  {
+                    duration: 3000,
+                    permanent: false,
+                  }
+                );
+              }
+            });
+          }
+        })
+        .catch((err) => {
+          alert(err.message);
+        });
     },
   },
   mounted() {

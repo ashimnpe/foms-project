@@ -9,20 +9,20 @@
   <b-row>
     <b-colxx xxs="12">
         <h5 class="mb-4 card-title">{{ $t('sortable.columns') }}</h5>
-        <draggable class="row icon-cards-row mb-2">
-            <b-colxx xxs="6" sm="4" md="3" lg="2">
-                <icon-card :title="$t('dashboards.pending-orders')" icon="iconsminds-clock" :value=14 />
-            </b-colxx>
-            <b-colxx xxs="6" sm="4" md="3" lg="2">
-                <icon-card :title="$t('dashboards.completed-orders')" icon="iconsminds-basket-coins" :value=32 />
-            </b-colxx>
-            <b-colxx xxs="6" sm="4" md="3" lg="2">
-                <icon-card :title="$t('dashboards.refund-requests')" icon="iconsminds-arrow-refresh" :value=74 />
-            </b-colxx>
-             <b-colxx xxs="6" sm="4" md="3" lg="2">
-                <icon-card :title="$t('dashboards.new-comments')" icon="iconsminds-mail-read" :value=25 />
-            </b-colxx>
-        </draggable>
+            <draggable class="row icon-cards-row mb-2">
+                <b-colxx xxs="6" sm="4" md="3" lg="2">
+                    <icon-card :title="$t('dashboards.pending-orders')" icon="iconsminds-clock" :value=14 />
+                </b-colxx>
+                <b-colxx xxs="6" sm="4" md="3" lg="2">
+                    <icon-card :title="$t('dashboards.completed-orders')" icon="iconsminds-basket-coins" :value=32 />
+                </b-colxx>
+                <b-colxx xxs="6" sm="4" md="3" lg="2">
+                    <icon-card :title="$t('dashboards.refund-requests')" icon="iconsminds-arrow-refresh" :value=74 />
+                </b-colxx>
+                <b-colxx xxs="6" sm="4" md="3" lg="2">
+                    <icon-card :title="$t('dashboards.new-comments')" icon="iconsminds-mail-read" :value=25 />
+                </b-colxx>
+            </draggable>
 
         <b-row>
             <b-colxx xxs="12">
