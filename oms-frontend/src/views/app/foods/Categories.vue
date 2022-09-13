@@ -18,7 +18,7 @@
           <span class="refresh-icon" @click="reloadPage">
             <i class="simple-icon-refresh"></i>
           </span>
-          <table class="table">
+          <table class="table  table-hover">
             <thead>
               <tr>
                 <th scope="col">#</th>

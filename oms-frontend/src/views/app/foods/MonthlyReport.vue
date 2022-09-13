@@ -2,14 +2,31 @@
   <div>
     <b-row>
       <b-colxx xxs="12">
-        <piaf-breadcrumb heading="DAILY REPORT" />
+        <piaf-breadcrumb heading="MONTHLY REPORT" />
         <div class="separator mb-5"></div>
       </b-colxx>
     </b-row>
     <b-row>
       <b-colxx xxs="12">
         <b-card>
-          <table class="table table-striped">
+          <div>
+            <form action="" @click="fetchReport(selectedMonth)">
+              <b-row>
+                <b-col class="col-md-5">
+                    <b-form-select
+                      v-model="selected"
+                      :options="months"
+                      size="sm"
+                    >
+                      </b-form-select>
+                </b-col>
+                <b-col class="col-md-3">
+                  <button class="btn btn-danger">generate report</button>
+                </b-col>
+              </b-row>
+            </form>
+          </div>
+        <table class="table table-striped">
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -27,14 +44,13 @@
                 <td>{{ detail.total_qty }}</td>
                 <td>Rs. {{ detail.price }}</td>
                 <td>Rs. {{ detail.total_amount }}</td>
-                <td>{{ moment(detail_created_at).format('YYYY-MM-DD') }}</td>
+                <td>{{ moment(detail.created_at).format("YYYY-MM") }}</td>
               </tr>
             </tbody>
             <tfoot>
               <tr class="font-weight-bold">
                 <td colspan="5" class="text-center">GRAND TOTAL</td>
                 <td>Rs.{{ details.grand_total }}</td>
-                
               </tr>
             </tfoot>
           </table>
@@ -52,12 +68,7 @@ export default {
     return {
       details: [],
       selected: null,
-      dateType: [
-        { value: null, text: "Please select an option" },
-        "Today",
-        "Yesterday",
-        "Month",
-      ],
+      dateType: ["Month"],
       months: [
         { value: null, text: "Please select an option" },
         "January",
@@ -73,16 +84,17 @@ export default {
         "November",
         "December",
       ],
-      selectedDateType: "Today",
+      // selectedDateType: "Today",
       selectedMonth: "",
     };
   },
   methods: {
     fetchReport() {
       getReport({
-        date_type: this.selectedDateType,
+        // date_type: this.selectedDateType,
         month: this.selectedMonth,
       }).then((res) => {
+        console.log(this.month);
         const details = res.result;
         this.details = details;
       });
@@ -96,11 +108,4 @@ export default {
 </script>
 
 <style>
-.month {
-  width: 20px;
-}
-
-button {
-  float: right;
-}
 </style>

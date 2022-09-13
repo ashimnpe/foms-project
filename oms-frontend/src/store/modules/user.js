@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { baseUrl, currentUser, isAuthGuardActive } from '../../constants/config'
+import { baseUrl, isAuthGuardActive } from '../../constants/config'
 import {setCurrentUser, getCurrentUser} from '../../utils'
 
 export default {

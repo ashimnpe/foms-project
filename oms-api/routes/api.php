@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('all/orders', [OrdersController::class, 'getAllOrders']);
     Route::post('make/payment', [OrdersController::class, 'makePayment']);
     Route::post('complete/order', [OrdersController::class, 'completeOrder']);
+    Route::post('cancel/order', [OrdersController::class, 'cancelOrder']);
 
     Route::get('all/users', [UserController::class, 'getAllUsers']);
     Route::post('user', [UserController::class, 'store']);
@@ -37,5 +38,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('product', [ProductsController::class, 'getAllProducts']);
     Route::get('orders/count', [OrdersController::class, 'getCount']);
 
-    Route::get('daily/report', [ReportsController::class], 'getDailyReport');
+    Route::post('daily/report', [ReportsController::class, 'getDailyReport']);
 });
