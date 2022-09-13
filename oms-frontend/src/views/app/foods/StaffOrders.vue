@@ -61,7 +61,7 @@
                 
                 <td>{{ moment(order.created_at).format('YYYY-MM-DD h:m') }}</td>
                 <td>
-                  <b-button :disabled="order.order_status === 'canceled'" variant="danger" @click="cancelOrder(order.id)"
+                  <b-button :disabled="order.order_status === 'canceled' || order.payment_status === 'Paid'" variant="danger" @click="cancelOrder(order.id)"
                     ><i class="simple-icon-trash"></i></b-button
                   >
                 </td>

@@ -19,4 +19,9 @@ class OrderDetail extends Model
     public function report(){
         return $this->belongsTo(Report::class, 'id','report_id');
     }
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

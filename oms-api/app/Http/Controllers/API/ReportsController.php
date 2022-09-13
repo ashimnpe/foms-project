@@ -16,8 +16,11 @@ class ReportsController extends Controller
     $month = request()->month;
     
 
-    $baseQuery = OrderDetail::groupBy('product_id')->orderBy('id','asc')
-        ->selectRaw('*, sum(quantity) as total_qty, sum(total) as total_amount')
+    $baseQuery = OrderDetail::with(['order' => function ($query) {
+        $query->withTrashed();
+    }])
+        ->groupBy('product_id')->orderBy('id','asc')
+        ->selectRaw('*, sum(quantity) as total_qty, sum(total) as total_amount  ')
         ->with('product');
 
     if ($dateType == 'Yesterday') {

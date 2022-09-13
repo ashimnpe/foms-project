@@ -46,7 +46,9 @@ class OrdersController extends Controller
     {
         $orders = Order::with(['order_details' => function ($query) {
             $query->orderBy('created_at')->with('product')->get();
-        }])->get();
+        }])
+        ->withTrashed()
+        ->get();
 
         return parent::resp(true, $orders, 200);
     }
@@ -81,13 +83,15 @@ class OrdersController extends Controller
     {
         try {
             $order = Order::findOrFail($request->order_id);
-            $order_details = OrderDetail::findOrFail($request->order_details_id);
             $order->update([
                 'order_status' => 'canceled',
+                // 'order_quantity' => null
             ]);
-            $order_details->update([
-                'order_quantity' => 0
-            ]);
+            $order->delete();
+            // return $order;
+            // $order_details->update([
+            //     'order_quantity' => 0
+            // ]);
 
             return parent::resp(true, 'Order canceled', 201);
         } catch (\Throwable $th) {
@@ -98,7 +102,7 @@ class OrdersController extends Controller
     public function getCount()
     {
         $user = User::count();
-        $order = Order::get('order_status as status');
+        $order = Order::withTrashed()->get('order_status as status');
 
         $count = [
             'user' => $user,

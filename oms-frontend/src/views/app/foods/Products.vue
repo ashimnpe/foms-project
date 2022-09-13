@@ -3,14 +3,6 @@
     <b-row>
       <b-colxx xxs="12">
         <piaf-breadcrumb heading="PRODUCTS" />
-
-        <b-button
-          variant="success"
-          class="float-right"
-          @click="showModal('new', null)"
-          >Add Product</b-button
-        >
-        <div class="separator mb-5"></div>
       </b-colxx>
     </b-row>
     <b-row>
@@ -19,6 +11,15 @@
           <span class="refresh-icon" @click="reloadPage">
             <i class="simple-icon-refresh"></i>
           </span>
+
+          <b-button
+          size="sm"
+          variant="success"
+          class="float-right mb-2"
+          @click="showModal('new', null)"
+          >Add Product</b-button
+        >
+         
           <table class="table table-hover">
             <thead>
               <tr>
@@ -41,10 +42,10 @@
                 <td>{{ product.title }}</td>
                 <td class="font-weight-bold">Rs. {{ product.price }}</td>
                 <td>
-                  <b-button @click="showModal('edit', product.id)"
+                  <b-button size="sm" @click="showModal('edit', product.id)"
                     >Edit</b-button
                   >
-                  <b-button @click="deleteProduct(product.id)" variant="danger"
+                  <b-button size="sm" @click="deleteProduct(product.id)" variant="danger"
                     >Delete</b-button
                   >
                 </td>
@@ -300,5 +301,9 @@ export default {
 <style>
 .refresh-icon {
   cursor: pointer;
+}
+
+.card .card-body {
+  padding: 10px !important;
 }
 </style>

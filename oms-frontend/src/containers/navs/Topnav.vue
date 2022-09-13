@@ -77,7 +77,7 @@
         </tr>
         <tr>
           <th>Role</th>
-          <td class="text-capitalize">{{currentUser.role}}</td>
+          <td class="text-uppercase">{{currentUser.role}}</td>
         </tr>
       </table>
     </b-modal>

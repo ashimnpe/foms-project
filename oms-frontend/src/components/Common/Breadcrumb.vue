@@ -1,9 +1,9 @@
 <template>
   <span>
-    <h1 v-if="heading && heading.length>0">{{ heading }}</h1>
-    <b-nav class="pt-0 breadcrumb-container d-none d-sm-block d-lg-inline-block">
+    <h3 v-if="heading && heading.length>0">{{ heading }}</h3>
+    <!-- <b-nav class="pt-0 breadcrumb-container d-none d-sm-block d-lg-inline-block">
       <b-breadcrumb :items="items" class="text-uppercase" />
-    </b-nav>
+    </b-nav> -->
   </span>
 </template>
 
@@ -32,10 +32,7 @@ export default {
     }
     rawPaths.map((sub, index) => {
       this.items.push({
-        text:
-          "/" + sub !== adminRoot
-            ? this.$t(sub)
-            : this.$t(home),
+        text: '',
         to: this.getUrl(path, sub, index)
       });
     });

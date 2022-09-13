@@ -3,10 +3,6 @@
     <b-row>
       <b-colxx xxs="12">
         <piaf-breadcrumb heading="USERS" />
-        <b-button class="float-right" @click="showModal('new', null)"
-          >Create User</b-button
-        >
-        <div class="separator mb-5"></div>
       </b-colxx>
     </b-row>
     <b-row>
@@ -15,14 +11,18 @@
           <span class="refresh-icon" @click="reloadPage">
             <i class="simple-icon-refresh"></i>
           </span>
+
+          <b-button size="sm" class="float-right mb-2" @click="showModal('new', null)"
+          >Create User</b-button
+        >
           <table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Full Name</th>
                 <th scope="col">Email</th>
-                <th scope="col">Role</th>
-                <th scope="col">Action</th>
+                <th scope="col" class="text-center">Role</th>
+                <th scope="col" class="text-center">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -30,10 +30,10 @@
                 <td>{{ user.id }}</td>
                 <td>{{ user.name }}</td>
                 <td>{{ user.email }}</td>
-                <td class="text-uppercase">{{ user.role }}</td>
-                <td>
-                  <b-button @click="showModal('edit', user.id)">Edit</b-button>
-                  <b-button @click="deleteUser(user.id)" variant="danger"
+                <td class="text-uppercase text-center">{{ user.role }}</td>
+                <td class="text-center">
+                  <b-button  size="sm" @click="showModal('edit', user.id)">Edit</b-button>
+                  <b-button  size="sm" @click="deleteUser(user.id)" variant="danger"
                     >Delete</b-button
                   >
                 </td>
@@ -58,7 +58,7 @@
         <div class="mb-3">
           <label class="form-label">Email</label>
           <input
-          :disabled="type === 'edit'"
+            :disabled="type === 'edit'"
             type="text"
             v-model="userForm.email"
             autocomplete="false"
@@ -245,6 +245,9 @@ export default {
 <style>
   .refresh-icon {
   cursor: pointer;
-  float: right;
+}
+
+.card .card-body {
+  padding: 10px !important;
 }
 </style>

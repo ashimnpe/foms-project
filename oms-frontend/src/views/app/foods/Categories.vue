@@ -3,21 +3,26 @@
     <b-row>
       <b-colxx xxs="12">
         <piaf-breadcrumb heading="CATEGORIES" />
-        <b-button
-          variant="success"
-          class="float-right"
-          @click="showModal('new', null)"
-          >Create Category</b-button
-        >
-        <div class="separator mb-5"></div>
+        
+        <!-- <div class="separator mb-5"></div> -->
       </b-colxx>
     </b-row>
     <b-row>
+      
       <b-colxx xxs="12">
         <b-card>
           <span class="refresh-icon" @click="reloadPage">
             <i class="simple-icon-refresh"></i>
           </span>
+          
+          <b-button
+          variant="success"
+          size="sm"
+          class="float-right mb-2"
+          @click="showModal('new', null)"
+          >Create Category</b-button
+        >
+        
           <table class="table  table-hover">
             <thead>
               <tr>
@@ -39,10 +44,11 @@
                 </td>
                 <td class="text-center">{{ category.title }}</td>
                 <td class="text-center">
-                  <b-button @click="showModal('edit', category.id)"
+                  <b-button size="sm" @click="showModal('edit', category.id)"
                     >Edit</b-button
                   >
                   <b-button
+                    size="sm"
                     @click="deleteCategory(category.id)"
                     variant="danger"
                     >Delete</b-button
@@ -257,9 +263,7 @@ ul {
 .err {
   border: 1px solid #f00;
 }
-
-.refresh-icon {
-  cursor: pointer;
-  float: right;
+.card .card-body {
+  padding: 10px !important;
 }
 </style>

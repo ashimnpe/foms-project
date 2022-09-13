@@ -27,7 +27,7 @@
       <!-- <icon-card :title="$t('dashboards.new-comments')" icon="iconsminds-mail-read" :value="25" /> -->
     </glide-component>
 
-    <draggable class="row icon-cards-row mb-2">
+    <draggable class="row icon-cards-row mb-2 justify-content-around">
             <b-colxx xxs="6" sm="4" md="3" lg="2">
                 <icon-card :title="$t('dashboards.pending-orders')" icon="iconsminds-clock" :value="count.pending" />
             </b-colxx>

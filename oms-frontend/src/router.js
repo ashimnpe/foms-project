@@ -78,12 +78,6 @@ const routes = [
         import(/* webpackChunkName: "dashboards" */ "./views/app/foods/Report"),
         meta: { roles: [UserRole.Admin] },
       },
-      {
-        path: "monthlyreport",
-        component: () =>
-        import(/* webpackChunkName: "dashboards" */ "./views/app/foods/MonthlyReport"),
-        meta: { roles: [UserRole.Admin] },
-      },
       // {
       //   path: "categories",
       //   component: () =>
